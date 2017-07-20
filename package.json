@@ -1,0 +1,22 @@
+{
+  "name": "rv8-bench",
+  "version": "0.0.1",
+  "description": "rv8 benchmark suite",
+  "main": "rv8-bench.js",
+  "scripts": {
+    "start": "node rv8-bench.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rv8-io/rv8-bench.git"
+  },
+  "keywords": [
+    "benchmarks"
+  ],
+  "author": "Michael Clark <michaeljclark@mac.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rv8-io/rv8-bench/issues"
+  },
+  "homepage": "https://github.com/rv8-io/rv8-bench#readme"
+}
