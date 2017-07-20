@@ -11,12 +11,12 @@ function pad(n, width, z) {
 function bench_cmd(bench, type, cmd, args)
 {
   var start = process.hrtime();
-  try {
-    var output = child_process.execFileSync(cmd, args)
-    var elapsed = process.hrtime(start);
-    var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
+  var obj = child_process.spawnSync(cmd, args)
+  var elapsed = process.hrtime(start);
+  var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
+  if (obj.status == 0) {
     console.log(pad(bench, 15) + ' | ' + type + ' | time=' + elapsed_secs);
-  } catch (e) {
+  } else {
     console.log(pad(bench, 15) + ' | ' + type + ' | error');
   }
 }
