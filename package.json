@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/rv8-io/rv8-bench/issues"
   },
-  "homepage": "https://github.com/rv8-io/rv8-bench#readme"
+  "homepage": "https://github.com/rv8-io/rv8-bench#readme",
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
 }

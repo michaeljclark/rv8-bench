@@ -67,6 +67,7 @@ x86_64 run `make` in the rv8-bench directory:
 ```
 cd rv8-bench
 make
+npm install
 ```
 
 ## Running
