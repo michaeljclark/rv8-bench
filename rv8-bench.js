@@ -16,6 +16,10 @@ function bench_cmd(bench, type, cmd, args)
   var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
   if (obj.status == 0) {
     var append = "";
+    var rv_inst = obj.stdout.toString().match(/instret\s+:\s+([0-9]+)/m);
+    if (rv_inst) {
+      append += ' | rv_inst=' + rv_inst[1];
+    }
     var x86_inst = obj.stderr.toString().match(/([0-9,]+)\s+instructions/m);
     if (x86_inst) {
       append += ' | x86_inst=' + x86_inst[1].split(',').join('');
@@ -34,7 +38,7 @@ function bench_sim(benchmarks, target)
 {
   benchmarks.forEach(function(bench) {
     bench_cmd(bench, 'rv-sim-' + target, 'rv-sim',
-      ['bin/' + target + '/' + bench]);
+      ['-E', 'bin/' + target + '/' + bench]);
   });
 }
 
