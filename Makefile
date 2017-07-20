@@ -2,7 +2,7 @@
 # rv8-bench
 #
 
-CFLAGS = -O3 -fPIE
+CFLAGS = -Ofast -fPIE
 LDFLAGS = -static
 
 CC_RV32 = riscv32-linux-musl-gcc
@@ -17,7 +17,9 @@ RV64_PROGS = $(addprefix bin/riscv64/, $(PROGRAMS))
 I386_PROGS = $(addprefix bin/i386/, $(PROGRAMS))
 X86_64_PROGS = $(addprefix bin/x86_64/, $(PROGRAMS))
 
-all: $(RV32_PROGS) $(RV64_PROGS) $(I386_PROGS) $(X86_64_PROGS)
+all: $(RV32_PROGS) $(RV64_PROGS) $(I386_PROGS) $(X86_64_PROGS) | npm
+
+npm: ; npm install
 
 clean: ; rm -fr bin
 
