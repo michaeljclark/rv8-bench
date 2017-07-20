@@ -22,18 +22,18 @@ rv8-bench depends on the following software:
 - [musl-riscv-toolchain-7.1.0-2](https://github.com/rv8-io/musl-riscv-toolchain/releases/tag/v7.1.0-2)
 - [Node.js](https://nodejs.org/)
 
-_**Installing Node.js on macOS with brew**_
+_Installing Node.js on macOS with brew_
 ```
 brew install node
 ```
 
-_**Installing Node.js on Debian Stretch**_
+_Installing Node.js on Debian Stretch_
 ```
 sudo apt-get install nodejs
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 ```
 
-_**Installing musl-riscv-toolchain**_
+_Installing musl-riscv-toolchain_
 ```
 git clone https://github.com/rv8-io/musl-riscv-toolchain.git
 cd musl-riscv-toolchain
@@ -42,7 +42,7 @@ for i in rv32 rv64 x86_64 i386 ; do \
 done
 ```
 
-_**Installing rv8**_
+_Installing rv8_
 ```
 git clone https://github.com/rv8-io/rv8.git
 cd rv8
@@ -50,7 +50,7 @@ git submodule update --init
 make -j4 && sudo make install
 ```
 
-_**Installing riscv-qemu**_
+_Installing riscv-qemu_
 ```
 git clone https://github.com/riscv/riscv-qemu.git
 cd riscv-qemu
