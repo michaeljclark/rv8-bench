@@ -15,7 +15,16 @@ function bench_cmd(bench, type, cmd, args)
   var elapsed = process.hrtime(start);
   var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
   if (obj.status == 0) {
-    console.log(pad(bench, 15) + ' | ' + type + ' | time=' + elapsed_secs);
+    var append = "";
+    var x86_inst = obj.stderr.toString().match(/([0-9,]+)\s+instructions/m);
+    if (x86_inst) {
+      append += ' | x86_inst=' + x86_inst[1].split(',').join('');
+    }
+    var x86_cycles = obj.stderr.toString().match(/([0-9,]+)\s+r1c2/m);
+    if (x86_cycles) {
+      append += ' | x86_cycles=' + x86_cycles[1].split(',').join('');
+    }
+    console.log(pad(bench, 15) + ' | ' + type + ' | time=' + elapsed_secs + append);
   } else {
     console.log(pad(bench, 15) + ' | ' + type + ' | error');
   }
