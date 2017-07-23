@@ -2,13 +2,13 @@
 # rv8-bench
 #
 
-CFLAGS = -Ofast -fPIE
+CFLAGS = -Os -fPIE -g0
 LDFLAGS = -static
 
-CC_RV32 = riscv32-linux-musl-gcc
-CC_RV64 = riscv64-linux-musl-gcc
-CC_I386 = i386-linux-musl-gcc
-CC_X86_64 = x86_64-linux-musl-gcc
+RV32 = riscv32-linux-musl-
+RV64 = riscv64-linux-musl-
+I386 = i386-linux-musl-
+X86_64 = x86_64-linux-musl-
 
 PROGRAMS = aes dhrystone miniz norx primes qsort sha512
 
@@ -25,16 +25,20 @@ clean: ; rm -fr bin
 
 bin/riscv32/%: src/%.c
 	@mkdir -p $(@D)
-	$(CC_RV32) $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(RV32)gcc $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(RV32)strip --strip-debug $@
 
 bin/riscv64/%: src/%.c
 	@mkdir -p $(@D)
-	$(CC_RV64) $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(RV64)gcc $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(RV64)strip --strip-debug $@
 
 bin/i386/%: src/%.c
 	@mkdir -p $(@D)
-	$(CC_I386) $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(I386)gcc $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(I386)strip --strip-debug $@
 
 bin/x86_64/%: src/%.c
 	@mkdir -p $(@D)
-	$(CC_X86_64) $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(X86_64)gcc $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(X86_64)strip --strip-debug $@
