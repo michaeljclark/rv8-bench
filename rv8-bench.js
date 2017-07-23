@@ -16,6 +16,10 @@ function bench_cmd(bench, type, cmd, args)
   var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
   if (obj.status == 0) {
     var append = "";
+    var dmips = obj.stdout.toString().match(/\s([0-9]+)\sDMIPS/);
+    if (dmips) {
+      append += ' | dmips=' + dmips[1];
+    }
     var rv_inst = obj.stdout.toString().match(/instret\s+:\s+([0-9]+)/m);
     if (rv_inst) {
       append += ' | rv_inst=' + rv_inst[1];
