@@ -26,6 +26,11 @@ function bench_cmd(bench, type, cmd, args)
     if (rv_inst) {
       append += ' | rv_inst=' + rv_inst[1];
     }
+    // x86 cycles
+    var x86_cycles = obj.stderr.toString().match(/([0-9,]+)\s+cycles/m);
+    if (x86_cycles) {
+      append += ' | x86_cycles=' + x86_cycles[1].split(',').join('');
+    }
     // x86 instructions retired
     var x86_inst = obj.stderr.toString().match(/([0-9,]+)\s+instructions/m);
     if (x86_inst) {
@@ -85,7 +90,7 @@ function bench_native(benchmarks, target)
 {
   benchmarks.forEach(function(bench) {
      bench_cmd(bench, 'native-' + target, 'perf',
-       ['stat', '-e', 'instructions,r1b1,r10e,r2c2,r1c2', 'bin/' + target + '/' + bench]);
+       ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2', 'bin/' + target + '/' + bench]);
   });
 }
 
