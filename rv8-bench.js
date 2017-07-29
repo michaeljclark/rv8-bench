@@ -1,6 +1,9 @@
 var child_process = require('child_process');
 
 var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
+var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit-riscv64',
+                   'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64' ];
+var opts       = [ 'O3', 'Os' ];
 
 function pad(n, width, z) {
   z = z || ' ';
@@ -94,28 +97,40 @@ function bench_native(benchmarks, target, opt)
   });
 }
 
+function bench(target, opt)
+{
+  switch (target) {
+    case 'rv-sim-riscv32': bench_sim(benchmarks, 'riscv32', opt); break;
+    case 'rv-sim-riscv64': bench_sim(benchmarks, 'riscv64', opt); break;
+    case 'rv-jit-riscv32': bench_jit(benchmarks, 'riscv32', opt); break;
+    case 'rv-jit-riscv64': bench_jit(benchmarks, 'riscv64', opt); break;
+    case 'qemu-riscv32': bench_qemu(benchmarks, 'riscv32', opt); break;
+    case 'qemu-riscv64': bench_qemu(benchmarks, 'riscv64', opt); break;
+    case 'qemu-aarch64': bench_qemu(benchmarks, 'aarch64', opt); break;
+    case 'native-i386': bench_native(benchmarks, 'i386', opt); break;
+    case 'native-x86_64': bench_native(benchmarks, 'x86_64', opt); break;
+  }
+}
+
 if (process.argv.length != 4) {
-   console.log('usage: npm start (rv32-sim|rv64-sim|rv32-jit|rv64-jit|rv32-qemu|rv64-qemu|arm64-qemu|i386|x86_64) (O3|Os)');
+   console.log('usage: npm start <arch> <opt>');
+   console.log('');
+   console.log('<arch> rv-sim-riscv32, rv-sim-riscv64, rv-jit-riscv32, rv-jit-riscv64');
+   console.log('       qemu-riscv32, qemu-riscv64, qemu-aarch64, native-i386, native-x86_64');
+   console.log('');
+   console.log('<opt>  O3, Os');
+   console.log('');
    process.exit();
 }
 
 var target = process.argv[2], opt = process.argv[3];
 
-switch (opt) {
-  case 'O3': break;
-  case 'Os': break;
-  default: console.log('unknown opt ' + opt); process.exit(); break;
+if (targets.indexOf(target) == -1) {
+  console.log('unknown target ' + target);
+  process.exit();
+} else if (opts.indexOf(opt) == -1) {
+  console.log('unknown opt ' + opt);
+  process.exit();
 }
 
-switch (target) {
-  case 'rv32-sim': bench_sim(benchmarks, 'riscv32', opt); break;
-  case 'rv64-sim': bench_sim(benchmarks, 'riscv64', opt); break;
-  case 'rv32-jit': bench_jit(benchmarks, 'riscv32', opt); break;
-  case 'rv64-jit': bench_jit(benchmarks, 'riscv64', opt); break;
-  case 'rv32-qemu': bench_qemu(benchmarks, 'riscv32', opt); break;
-  case 'rv64-qemu': bench_qemu(benchmarks, 'riscv64', opt); break;
-  case 'arm64-qemu': bench_qemu(benchmarks, 'aarch64', opt); break;
-  case 'i386': bench_native(benchmarks, 'i386', opt); break;
-  case 'x86_64': bench_native(benchmarks, 'x86_64', opt); break;
-  default: console.log('unknown target ' + target); break;
-}
+bench(target, opt);
