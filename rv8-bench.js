@@ -22,7 +22,7 @@ function repeat(width, z) {
   return new Array(width).join(z);
 }
 
-function bench_cmd(bench, cmd, args)
+function benchmark_cmd(bench, cmd, args)
 {
   var start = process.hrtime();
   var obj = child_process.spawnSync(cmd, args)
@@ -70,110 +70,147 @@ function bench_cmd(bench, cmd, args)
     if (x86_uops_retired_all) {
       data['x86_uops_retired_all'] = x86_uops_retired_all[1].split(',').join('');
     }
-    data['runtime'] = elapsed_secs;
+    data['runtime'] = Math.round(elapsed_secs* 1000) / 1000;
   } else {
     data['error'] = true;
   }
   return data;
 }
 
-function bench_header()
+function benchmark_header()
 {
   console.log(padr('Benchmark', 15) + ' | ' + padr('System', 15) + ' | ' + padr('Opt', 3) + ' | Runtime');
+  console.log(padr('---------', 15) + ' | ' + padr('------', 15) + ' | ' + padr('---', 3) + ' | -------');
 }
 
-function bench_add_row(db, bench, system, opt, data)
+function benchmark_add_row(db, bench, system, opt, data)
 {
   console.log(padr(bench, 15) + ' | ' + padr(system, 15) + ' | ' + padr(opt, 3) + ' | ' + data['runtime']);
 }
 
-function bench_sim(db, benchmarks, target, opt, runs)
+function benchmark_sim(db, benchmark, target, opt, runs)
 {
   var system = 'rv-sim-' + target;
-  bench_header();
-  benchmarks.forEach(function(bench) {
-    for (var i = 0; i < runs; i++) {
-      var data = bench_cmd(bench, 'rv-sim',
-        ['-E', 'bin/' + target + '/' + bench + "." + opt]);
-      bench_add_row(db, bench, system, opt, data);
-    }
-  });
-}
-
-function bench_jit(db, benchmarks, target, opt, runs)
-{
-  var system = 'rv-jit-' + target;
-  bench_header();
-  benchmarks.forEach(function(bench) {
-    for (var i = 0; i < runs; i++) {
-      var data = bench_cmd(bench, 'rv-jit',
-        ['bin/' + target + '/' + bench + "." + opt]);
-      bench_add_row(db, bench, system, opt, data);
-    }
-  });
-}
-
-function bench_qemu(db, benchmarks, target, opt, runs)
-{
-  var system = 'qemu-' + target;
-  bench_header();
-  benchmarks.forEach(function(bench) {
-    for (var i = 0; i < runs; i++) {
-      var data = bench_cmd(bench, 'qemu-' + target,
-        ['bin/' + target + '/' + bench + "." + opt]);
-      bench_add_row(db, bench, system, opt, data);
-    }
-  });
-}
-
-function bench_native(db, benchmarks, target, opt, runs)
-{
-  var system = 'native-' + target;
-  bench_header();
-  benchmarks.forEach(function(bench) {
-    for (var i = 0; i < runs; i++) {
-      var data = bench_cmd(bench, 'perf',
-         ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2', 'bin/' + target + '/' + bench + "." + opt]);
-      bench_add_row(db, bench, system, opt, data);
-    }
-  });
-}
-
-function bench(target, opt, runs)
-{
-  var db = [];
-  switch (target) {
-    case 'rv-sim-riscv32': bench_sim(db, benchmarks, 'riscv32', opt, runs); break;
-    case 'rv-sim-riscv64': bench_sim(db, benchmarks, 'riscv64', opt, runs); break;
-    case 'rv-jit-riscv32': bench_jit(db, benchmarks, 'riscv32', opt, runs); break;
-    case 'rv-jit-riscv64': bench_jit(db, benchmarks, 'riscv64', opt, runs); break;
-    case 'qemu-riscv32': bench_qemu(db, benchmarks, 'riscv32', opt, runs); break;
-    case 'qemu-riscv64': bench_qemu(db, benchmarks, 'riscv64', opt, runs); break;
-    case 'qemu-aarch64': bench_qemu(db, benchmarks, 'aarch64', opt, runs); break;
-    case 'native-i386': bench_native(db, benchmarks, 'i386', opt, runs); break;
-    case 'native-x86_64': bench_native(db, benchmarks, 'x86_64', opt, runs); break;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'rv-sim',
+      ['-E', 'bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(db, bench, system, opt, data);
   }
 }
 
-if (process.argv.length != 5) {
-   console.log('usage: npm start <arch> <opt> <runs>');
+function benchmark_jit(db, benchmark, target, opt, runs)
+{
+  var system = 'rv-jit-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'rv-jit',
+      ['bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(db, benchmark, system, opt, data);
+  }
+}
+
+function benchmark_qemu(db, benchmark, target, opt, runs)
+{
+  var system = 'qemu-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'qemu-' + target,
+      ['bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(db, benchmark, system, opt, data);
+  }
+}
+
+function benchmark_native(db, benchmark, target, opt, runs)
+{
+  var system = 'native-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'perf',
+       ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2',
+        'bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(db, benchmark, system, opt, data);
+  }
+}
+
+function benchmark_run(db, benchmark, target, opt, runs)
+{
+  switch (target) {
+    case 'rv-sim-riscv32': benchmark_sim(db, benchmark, 'riscv32', opt, runs); break;
+    case 'rv-sim-riscv64': benchmark_sim(db, benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-riscv32': benchmark_jit(db, benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-riscv64': benchmark_jit(db, benchmark, 'riscv64', opt, runs); break;
+    case 'qemu-riscv32': benchmark_qemu(db, benchmark, 'riscv32', opt, runs); break;
+    case 'qemu-riscv64': benchmark_qemu(db, benchmark, 'riscv64', opt, runs); break;
+    case 'qemu-aarch64': benchmark_qemu(db, benchmark, 'aarch64', opt, runs); break;
+    case 'native-i386': benchmark_native(db, benchmark, 'i386', opt, runs); break;
+    case 'native-x86_64': benchmark_native(db, benchmark, 'x86_64', opt, runs); break;
+  }
+}
+
+function benchmark_peel_opt(db, benchmark, target, opt, runs)
+{
+  if (opt == 'all') {
+    opts.forEach(function(opt) {
+      benchmark_run(db, benchmark, target, opt, runs);
+    });
+  } else {
+    benchmark_run(db, benchmark, target, opt, runs);
+  }
+}
+function benchmark_peel_target(db, benchmark, target, opt, runs)
+{
+  if (target == 'all') {
+    targets.forEach(function(target) {
+      benchmark_peel_opt(db, benchmark, target, opt, runs);
+    });
+  } else {
+    benchmark_peel_opt(db, benchmark, target, opt, runs);
+  }
+}
+
+function benchmark_peel_benchmark(db, benchmark, target, opt, runs)
+{
+  if (benchmark == 'all') {
+    benchmarks.forEach(function(benchmark) {
+      benchmark_peel_target(db, benchmark, target, opt, runs);
+    });
+  } else {
+    benchmark_peel_target(db, benchmark, target, opt, runs);
+  }
+}
+
+var db = [];
+
+if (process.argv.length != 6) {
+   console.log('usage: npm start <benchmark> <target> <opt> <runs>');
    console.log('');
-   console.log('<arch> rv-sim-riscv32, rv-sim-riscv64, rv-jit-riscv32, rv-jit-riscv64');
-   console.log('       qemu-riscv32, qemu-riscv64, qemu-aarch64, native-i386, native-x86_64');
+   console.log('<benchmark>  [ all | ' + benchmarks.join(' | ') + ' ]');
    console.log('');
-   console.log('<opt>  O3, Os');
+   console.log('<target>     [ all | ' + targets.join(' | ') + ' ]');
+   console.log('');
+   console.log('<opt>        [ all | ' + opts.join(' | ') + ' ]');
    console.log('');
    process.exit();
 }
 
-var target = process.argv[2], opt = process.argv[3], runs = parseInt(process.argv[4]);
+var benchmark = process.argv[2];
+var target = process.argv[3];
+var opt = process.argv[4];
+var runs = parseInt(process.argv[5]);
 
-if (targets.indexOf(target) == -1) {
+if (benchmarks.indexOf(benchmark) == -1 && benchmark != 'all') {
+  console.log('unknown benchmark ' + benchmark);
+  process.exit();
+} else if (targets.indexOf(target) == -1 && target != 'all') {
   console.log('unknown target ' + target);
   process.exit();
-} else if (opts.indexOf(opt) == -1) {
+} else if (opts.indexOf(opt) == -1 && opt != 'all') {
   console.log('unknown opt ' + opt);
   process.exit();
 }
 
-bench(target, opt, runs);
+console.log('benchmark  : ' + benchmark);
+console.log('target     : ' + target);
+console.log('opt        : ' + opt);
+console.log('runs       : ' + runs);
+console.log('');
+
+benchmark_header();
+benchmark_peel_benchmark(db, benchmark, target, opt, runs);
