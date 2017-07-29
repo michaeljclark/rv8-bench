@@ -62,53 +62,60 @@ function bench_cmd(bench, type, cmd, args)
   }
 }
 
-function bench_sim(benchmarks, target)
+function bench_sim(benchmarks, target, opt)
 {
   benchmarks.forEach(function(bench) {
     bench_cmd(bench, 'rv-sim-' + target, 'rv-sim',
-      ['-E', 'bin/' + target + '/' + bench]);
+      ['-E', 'bin/' + target + '/' + bench + "." + opt]);
   });
 }
 
-function bench_jit(benchmarks, target)
+function bench_jit(benchmarks, target, opt)
 {
   benchmarks.forEach(function(bench) {
     bench_cmd(bench, 'rv-jit-' + target, 'rv-jit',
-      ['bin/' + target + '/' + bench]);
+      ['bin/' + target + '/' + bench + "." + opt]);
   });
 }
 
-function bench_qemu(benchmarks, target)
+function bench_qemu(benchmarks, target, opt)
 {
   benchmarks.forEach(function(bench) {
     bench_cmd(bench, 'qemu-' + target, 'qemu-' + target,
-      ['bin/' + target + '/' + bench]);
+      ['bin/' + target + '/' + bench + "." + opt]);
   });
 }
 
-function bench_native(benchmarks, target)
+function bench_native(benchmarks, target, opt)
 {
   benchmarks.forEach(function(bench) {
      bench_cmd(bench, 'native-' + target, 'perf',
-       ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2', 'bin/' + target + '/' + bench]);
+       ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2', 'bin/' + target + '/' + bench + "." + opt]);
   });
 }
 
-if (process.argv.length != 3) {
-   console.log('usage: npm start (rv32-sim|rv64-sim|rv32-jit|rv64-jit|rv32-qemu|rv64-qemu|i386|x86_64)');
+if (process.argv.length != 4) {
+   console.log('usage: npm start (rv32-sim|rv64-sim|rv32-jit|rv64-jit|rv32-qemu|rv64-qemu|arm64-qemu|i386|x86_64) (O3|Os)');
    process.exit();
 }
 
-var target = process.argv[2];
+var target = process.argv[2], opt = process.argv[3];
+
+switch (opt) {
+  case 'O3': break;
+  case 'Os': break;
+  default: console.log('unknown opt ' + opt); process.exit(); break;
+}
 
 switch (target) {
-  case 'rv32-sim': bench_sim(benchmarks, 'riscv32'); break;
-  case 'rv64-sim': bench_sim(benchmarks, 'riscv64'); break;
-  case 'rv32-jit': bench_jit(benchmarks, 'riscv32'); break;
-  case 'rv64-jit': bench_jit(benchmarks, 'riscv64'); break;
-  case 'rv32-qemu': bench_qemu(benchmarks, 'riscv32'); break;
-  case 'rv64-qemu': bench_qemu(benchmarks, 'riscv64'); break;
-  case 'i386': bench_native(benchmarks, 'i386'); break;
-  case 'x86_64': bench_native(benchmarks, 'x86_64'); break;
+  case 'rv32-sim': bench_sim(benchmarks, 'riscv32', opt); break;
+  case 'rv64-sim': bench_sim(benchmarks, 'riscv64', opt); break;
+  case 'rv32-jit': bench_jit(benchmarks, 'riscv32', opt); break;
+  case 'rv64-jit': bench_jit(benchmarks, 'riscv64', opt); break;
+  case 'rv32-qemu': bench_qemu(benchmarks, 'riscv32', opt); break;
+  case 'rv64-qemu': bench_qemu(benchmarks, 'riscv64', opt); break;
+  case 'arm64-qemu': bench_qemu(benchmarks, 'aarch64', opt); break;
+  case 'i386': bench_native(benchmarks, 'i386', opt); break;
+  case 'x86_64': bench_native(benchmarks, 'x86_64', opt); break;
   default: console.log('unknown target ' + target); break;
 }
