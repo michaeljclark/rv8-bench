@@ -2,10 +2,14 @@ var fs = require("fs");
 var child_process = require('child_process');
 
 var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
+
 var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit-riscv64',
                    'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64',
                    'size-riscv32', 'size=riscv64', 'size-aarch64', 'size-i386', 'size-x86_64' ];
+
 var opts       = [ 'O3', 'Os' ];
+
+var fmt        = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8] ]
 
 function padl(n, width, z) {
   z = z || ' ';
@@ -79,15 +83,42 @@ function benchmark_cmd(bench, cmd, args)
   return data;
 }
 
-function benchmark_header()
+function benchmark_format_headings(fmt)
 {
-  console.log(padr('Benchmark', 15) + ' | ' + padr('System', 15) + ' | ' + padr('Opt', 3) + ' | Runtime');
-  console.log(padr('---------', 15) + ' | ' + padr('------', 15) + ' | ' + padr('---', 3) + ' | -------');
+  var output = "";
+  for (var i = 0; i < fmt.length; i++) {
+    if (i != 0) output += ' | ' ;
+    output += padr(fmt[i][0], fmt[i][1]);
+  }
+  return output;
+}
+
+function benchmark_format_rule(fmt)
+{
+  var output = "";
+  for (var i = 0; i < fmt.length; i++) {
+    if (i != 0) output += ' | ' ;
+    output += padr(repeat(fmt[i][1], '-'), fmt[i][1]);
+  }
+  return output;
+}
+
+function benchmark_format_row(fmt, data)
+{
+  var output = "";
+  for (var i = 0; i < fmt.length; i++) {
+    if (i != 0) output += ' | ' ;
+    output += padr(data[fmt[i][0]], fmt[i][1]);
+  }
+  return output;
 }
 
 function benchmark_add_row(db, bench, system, opt, data)
 {
-  console.log(padr(bench, 15) + ' | ' + padr(system, 15) + ' | ' + padr(opt, 3) + ' | ' + data['runtime']);
+  data['benchmark'] = benchmark;
+  data['system'] = system;
+  data['opt'] = opt;
+  console.log(benchmark_format_row(fmt, data));
 }
 
 function benchmark_size(db, benchmark, target, opt, runs)
@@ -232,5 +263,6 @@ console.log('opt        : ' + opt);
 console.log('runs       : ' + runs);
 console.log('');
 
-benchmark_header();
+console.log(benchmark_format_headings(fmt));
+console.log(benchmark_format_rule(fmt));
 benchmark_peel_benchmark(db, benchmark, target, opt, runs);
