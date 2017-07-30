@@ -1,3 +1,7 @@
+/*
+ * rv8-bench
+ */
+
 var fs = require("fs");
 var child_process = require('child_process');
 
@@ -9,7 +13,14 @@ var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit
 
 var opts       = [ 'O3', 'Os' ];
 
-var fmt        = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8] ]
+var fmt_time   = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8] ]
+
+var fmt_inst   = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8], ['instret', 8] ]
+
+var fmt_size    = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['filesize', 8] ]
+
+var row_count = 0;
+var last_fmt = null;
 
 function padl(n, width, z) {
   z = z || ' ';
@@ -113,24 +124,40 @@ function benchmark_format_row(fmt, data)
   return output;
 }
 
-function benchmark_add_row(db, bench, system, opt, data)
+function benchmark_print_heading(fmt)
+{
+  console.log(benchmark_format_headings(fmt));
+  console.log(benchmark_format_rule(fmt));
+}
+
+function benchmark_print_row(fmt, data)
+{
+  if (fmt != last_fmt || row_count % 20 == 0) {
+    benchmark_print_heading(fmt);
+  }
+  console.log(benchmark_format_row(fmt, data));
+  row_count++;
+  last_fmt = fmt;
+}
+
+function benchmark_add_row(db, benchmark, system, opt, data)
 {
   data['benchmark'] = benchmark;
   data['system'] = system;
   data['opt'] = opt;
-  console.log(benchmark_format_row(fmt, data));
 }
 
 function benchmark_size(db, benchmark, target, opt, runs)
 {
-    var system = 'size-' + target;
-    var binary = 'bin/' + target + '/' + benchmark + "." + opt + ".stripped";
-    var stats = fs.statSync(binary);
-    var data = {
-      runtime: 0,
-      filesize: stats.size
-    };
-    benchmark_add_row(db, benchmark, system, opt, data);
+  var system = 'size-' + target;
+  var binary = 'bin/' + target + '/' + benchmark + "." + opt + ".stripped";
+  var stats = fs.statSync(binary);
+  var data = {
+    runtime: 0,
+    filesize: stats.size
+  };
+  benchmark_add_row(db, benchmark, system, opt, data);
+  benchmark_print_row(fmt_size, data);
 }
 
 function benchmark_sim(db, benchmark, target, opt, runs)
@@ -140,8 +167,9 @@ function benchmark_sim(db, benchmark, target, opt, runs)
     var data = benchmark_cmd(benchmark, 'rv-sim',
       ['-E', 'bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_print_row(fmt_inst, data);
   }
-  // Gather register and instruction frequencies
+  // TODO - gather register and instruction frequencies
 }
 
 function benchmark_jit(db, benchmark, target, opt, runs)
@@ -151,6 +179,7 @@ function benchmark_jit(db, benchmark, target, opt, runs)
     var data = benchmark_cmd(benchmark, 'rv-jit',
       ['bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_print_row(fmt_time, data);
   }
 }
 
@@ -161,6 +190,7 @@ function benchmark_qemu(db, benchmark, target, opt, runs)
     var data = benchmark_cmd(benchmark, 'qemu-' + target,
       ['bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_print_row(fmt_time, data);
   }
 }
 
@@ -172,6 +202,7 @@ function benchmark_native(db, benchmark, target, opt, runs)
        ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2',
         'bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_print_row(fmt_inst, data);
   }
 }
 
@@ -263,6 +294,4 @@ console.log('opt        : ' + opt);
 console.log('runs       : ' + runs);
 console.log('');
 
-console.log(benchmark_format_headings(fmt));
-console.log(benchmark_format_rule(fmt));
 benchmark_peel_benchmark(db, benchmark, target, opt, runs);
