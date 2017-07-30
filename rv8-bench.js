@@ -40,17 +40,17 @@ function benchmark_cmd(bench, cmd, args)
     // riscv instructions retired
     var rv_inst = obj.stdout.toString().match(/instret\s+:\s+([0-9]+)/m);
     if (rv_inst) {
-      data['rv_inst'] = rv_inst[1];
+      data['instret'] = rv_inst[1];
     }
     // x86 cycles
     var x86_cycles = obj.stderr.toString().match(/([0-9,]+)\s+cycles/m);
     if (x86_cycles) {
-      data['x86_cycles'] = x86_cycles[1].split(',').join('');
+      data['cycles'] = x86_cycles[1].split(',').join('');
     }
     // x86 instructions retired
     var x86_inst = obj.stderr.toString().match(/([0-9,]+)\s+instructions/m);
     if (x86_inst) {
-      data['x86_inst'] = x86_inst[1].split(',').join('');
+      data['instret'] = x86_inst[1].split(',').join('');
     }
     // unfused domain, uops sent to execution port
     var x86_uops_executed = obj.stderr.toString().match(/([0-9,]+)\s+r1b1/m);
