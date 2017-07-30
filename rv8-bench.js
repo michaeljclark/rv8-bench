@@ -1,8 +1,10 @@
+var fs = require("fs");
 var child_process = require('child_process');
 
 var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
 var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit-riscv64',
-                   'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64' ];
+                   'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64',
+                   'size-riscv32', 'size=riscv64', 'size-aarch64', 'size-i386', 'size-x86_64' ];
 var opts       = [ 'O3', 'Os' ];
 
 function padl(n, width, z) {
@@ -88,14 +90,27 @@ function benchmark_add_row(db, bench, system, opt, data)
   console.log(padr(bench, 15) + ' | ' + padr(system, 15) + ' | ' + padr(opt, 3) + ' | ' + data['runtime']);
 }
 
+function benchmark_size(db, benchmark, target, opt, runs)
+{
+    var system = 'size-' + target;
+    var binary = 'bin/' + target + '/' + benchmark + "." + opt + ".stripped";
+    var stats = fs.statSync(binary);
+    var data = {
+      runtime: 0,
+      filesize: stats.size
+    };
+    benchmark_add_row(db, benchmark, system, opt, data);
+}
+
 function benchmark_sim(db, benchmark, target, opt, runs)
 {
   var system = 'rv-sim-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'rv-sim',
       ['-E', 'bin/' + target + '/' + benchmark + "." + opt]);
-    benchmark_add_row(db, bench, system, opt, data);
+    benchmark_add_row(db, benchmark, system, opt, data);
   }
+  // Gather register and instruction frequencies
 }
 
 function benchmark_jit(db, benchmark, target, opt, runs)
@@ -141,6 +156,11 @@ function benchmark_run(db, benchmark, target, opt, runs)
     case 'qemu-aarch64': benchmark_qemu(db, benchmark, 'aarch64', opt, runs); break;
     case 'native-i386': benchmark_native(db, benchmark, 'i386', opt, runs); break;
     case 'native-x86_64': benchmark_native(db, benchmark, 'x86_64', opt, runs); break;
+    case 'size-riscv32': benchmark_size(db, benchmark, 'riscv32', opt, runs); break;
+    case 'size-riscv64': benchmark_size(db, benchmark, 'riscv64', opt, runs); break;
+    case 'size-aarch64': benchmark_size(db, benchmark, 'aarch64', opt, runs); break;
+    case 'size-i386': benchmark_size(db, benchmark, 'i386', opt, runs); break;
+    case 'size-x86_64': benchmark_size(db, benchmark, 'x86_64', opt, runs); break;
   }
 }
 
