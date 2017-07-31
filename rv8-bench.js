@@ -9,7 +9,7 @@ var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha5
 
 var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit-riscv64',
                    'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64',
-                   'size-riscv32', 'size=riscv64', 'size-aarch64', 'size-i386', 'size-x86_64' ];
+                   'size-riscv32', 'size-riscv64', 'size-aarch64', 'size-i386', 'size-x86_64' ];
 
 var opts       = [ 'O3', 'Os' ];
 
@@ -19,8 +19,12 @@ var fmt_inst   = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8]
 
 var fmt_size    = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['filesize', 8] ]
 
+var stats_dir   = "./stats"
+
 var row_count = 0;
+
 var last_fmt = null;
+
 
 function padl(n, width, z) {
   z = z || ' ';
@@ -45,7 +49,7 @@ function benchmark_cmd(bench, cmd, args)
   var obj = child_process.spawnSync(cmd, args)
   var elapsed = process.hrtime(start);
   var elapsed_secs = elapsed[0] + elapsed[1] / 1000000000.0
-  var data = [];
+  var data = {};
   if (obj.status == 0) {
     var dmips = obj.stdout.toString().match(/\s([0-9]+)\sDMIPS/);
     //dhrystone mips
@@ -140,14 +144,29 @@ function benchmark_print_row(fmt, data)
   last_fmt = fmt;
 }
 
-function benchmark_add_row(db, benchmark, system, opt, data)
+function benchmark_add_row(benchmark, system, opt, data)
 {
   data['benchmark'] = benchmark;
   data['system'] = system;
   data['opt'] = opt;
+  if (!fs.existsSync(stats_dir)){
+    fs.mkdirSync(stats_dir);
+  }
+  var path = stats_dir + '/' + system + '.json';
+  var contents, arr;
+  try {
+    contents = fs.readFileSync(path);
+  } catch (error) {}
+  if (contents) {
+    arr = JSON.parse(contents);
+    arr.push(data);
+  } else {
+    arr = [ data ];
+  }
+  fs.writeFileSync(path, JSON.stringify(arr));
 }
 
-function benchmark_size(db, benchmark, target, opt, runs)
+function benchmark_size(benchmark, target, opt, runs)
 {
   var system = 'size-' + target;
   var binary = 'bin/' + target + '/' + benchmark + "." + opt + ".stripped";
@@ -156,105 +175,105 @@ function benchmark_size(db, benchmark, target, opt, runs)
     runtime: 0,
     filesize: stats.size
   };
-  benchmark_add_row(db, benchmark, system, opt, data);
+  benchmark_add_row(benchmark, system, opt, data);
   benchmark_print_row(fmt_size, data);
 }
 
-function benchmark_sim(db, benchmark, target, opt, runs)
+function benchmark_sim(benchmark, target, opt, runs)
 {
   var system = 'rv-sim-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'rv-sim',
       ['-E', 'bin/' + target + '/' + benchmark + "." + opt]);
-    benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_add_row(benchmark, system, opt, data);
     benchmark_print_row(fmt_inst, data);
   }
   // TODO - gather register and instruction frequencies
 }
 
-function benchmark_jit(db, benchmark, target, opt, runs)
+function benchmark_jit(benchmark, target, opt, runs)
 {
   var system = 'rv-jit-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'rv-jit',
       ['bin/' + target + '/' + benchmark + "." + opt]);
-    benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_add_row(benchmark, system, opt, data);
     benchmark_print_row(fmt_time, data);
   }
 }
 
-function benchmark_qemu(db, benchmark, target, opt, runs)
+function benchmark_qemu(benchmark, target, opt, runs)
 {
   var system = 'qemu-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'qemu-' + target,
       ['bin/' + target + '/' + benchmark + "." + opt]);
-    benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_add_row(benchmark, system, opt, data);
     benchmark_print_row(fmt_time, data);
   }
 }
 
-function benchmark_native(db, benchmark, target, opt, runs)
+function benchmark_native(benchmark, target, opt, runs)
 {
   var system = 'native-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'perf',
        ['stat', '-e', 'cycles,instructions,r1b1,r10e,r2c2,r1c2',
         'bin/' + target + '/' + benchmark + "." + opt]);
-    benchmark_add_row(db, benchmark, system, opt, data);
+    benchmark_add_row(benchmark, system, opt, data);
     benchmark_print_row(fmt_inst, data);
   }
 }
 
-function benchmark_run(db, benchmark, target, opt, runs)
+function benchmark_run(benchmark, target, opt, runs)
 {
   switch (target) {
-    case 'rv-sim-riscv32': benchmark_sim(db, benchmark, 'riscv32', opt, runs); break;
-    case 'rv-sim-riscv64': benchmark_sim(db, benchmark, 'riscv64', opt, runs); break;
-    case 'rv-jit-riscv32': benchmark_jit(db, benchmark, 'riscv32', opt, runs); break;
-    case 'rv-jit-riscv64': benchmark_jit(db, benchmark, 'riscv64', opt, runs); break;
-    case 'qemu-riscv32': benchmark_qemu(db, benchmark, 'riscv32', opt, runs); break;
-    case 'qemu-riscv64': benchmark_qemu(db, benchmark, 'riscv64', opt, runs); break;
-    case 'qemu-aarch64': benchmark_qemu(db, benchmark, 'aarch64', opt, runs); break;
-    case 'native-i386': benchmark_native(db, benchmark, 'i386', opt, runs); break;
-    case 'native-x86_64': benchmark_native(db, benchmark, 'x86_64', opt, runs); break;
-    case 'size-riscv32': benchmark_size(db, benchmark, 'riscv32', opt, runs); break;
-    case 'size-riscv64': benchmark_size(db, benchmark, 'riscv64', opt, runs); break;
-    case 'size-aarch64': benchmark_size(db, benchmark, 'aarch64', opt, runs); break;
-    case 'size-i386': benchmark_size(db, benchmark, 'i386', opt, runs); break;
-    case 'size-x86_64': benchmark_size(db, benchmark, 'x86_64', opt, runs); break;
+    case 'rv-sim-riscv32': benchmark_sim(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-sim-riscv64': benchmark_sim(benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-riscv32': benchmark_jit(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-riscv64': benchmark_jit(benchmark, 'riscv64', opt, runs); break;
+    case 'qemu-riscv32': benchmark_qemu(benchmark, 'riscv32', opt, runs); break;
+    case 'qemu-riscv64': benchmark_qemu(benchmark, 'riscv64', opt, runs); break;
+    case 'qemu-aarch64': benchmark_qemu(benchmark, 'aarch64', opt, runs); break;
+    case 'native-i386': benchmark_native(benchmark, 'i386', opt, runs); break;
+    case 'native-x86_64': benchmark_native(benchmark, 'x86_64', opt, runs); break;
+    case 'size-riscv32': benchmark_size(benchmark, 'riscv32', opt, runs); break;
+    case 'size-riscv64': benchmark_size(benchmark, 'riscv64', opt, runs); break;
+    case 'size-aarch64': benchmark_size(benchmark, 'aarch64', opt, runs); break;
+    case 'size-i386': benchmark_size(benchmark, 'i386', opt, runs); break;
+    case 'size-x86_64': benchmark_size(benchmark, 'x86_64', opt, runs); break;
   }
 }
 
-function benchmark_peel_opt(db, benchmark, target, opt, runs)
+function benchmark_peel_opt(benchmark, target, opt, runs)
 {
   if (opt == 'all') {
     opts.forEach(function(opt) {
-      benchmark_run(db, benchmark, target, opt, runs);
+      benchmark_run(benchmark, target, opt, runs);
     });
   } else {
-    benchmark_run(db, benchmark, target, opt, runs);
+    benchmark_run(benchmark, target, opt, runs);
   }
 }
-function benchmark_peel_target(db, benchmark, target, opt, runs)
+function benchmark_peel_target(benchmark, target, opt, runs)
 {
   if (target == 'all') {
     targets.forEach(function(target) {
-      benchmark_peel_opt(db, benchmark, target, opt, runs);
+      benchmark_peel_opt(benchmark, target, opt, runs);
     });
   } else {
-    benchmark_peel_opt(db, benchmark, target, opt, runs);
+    benchmark_peel_opt(benchmark, target, opt, runs);
   }
 }
 
-function benchmark_peel_benchmark(db, benchmark, target, opt, runs)
+function benchmark_peel_benchmark(benchmark, target, opt, runs)
 {
   if (benchmark == 'all') {
     benchmarks.forEach(function(benchmark) {
-      benchmark_peel_target(db, benchmark, target, opt, runs);
+      benchmark_peel_target(benchmark, target, opt, runs);
     });
   } else {
-    benchmark_peel_target(db, benchmark, target, opt, runs);
+    benchmark_peel_target(benchmark, target, opt, runs);
   }
 }
 
@@ -294,4 +313,4 @@ console.log('opt        : ' + opt);
 console.log('runs       : ' + runs);
 console.log('');
 
-benchmark_peel_benchmark(db, benchmark, target, opt, runs);
+benchmark_peel_benchmark(benchmark, target, opt, runs);
