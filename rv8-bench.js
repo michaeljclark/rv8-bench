@@ -137,6 +137,7 @@ function benchmark_print_heading(fmt)
 function benchmark_print_row(fmt, data)
 {
   if (fmt != last_fmt || row_count % 20 == 0) {
+    console.log('');
     benchmark_print_heading(fmt);
   }
   console.log(benchmark_format_row(fmt, data));
