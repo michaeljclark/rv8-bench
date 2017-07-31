@@ -7,9 +7,22 @@ var child_process = require('child_process');
 
 var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
 
-var targets    = [ 'rv-sim-riscv32', 'rv-sim-riscv64', 'rv-jit-riscv32', 'rv-jit-riscv64',
-                   'qemu-riscv32', 'qemu-riscv64', 'qemu-aarch64', 'native-i386', 'native-x86_64',
-                   'size-riscv32', 'size-riscv64', 'size-aarch64', 'size-i386', 'size-x86_64' ];
+var targets    = [ 'rv-hist-riscv32',
+                   'rv-hist-riscv64',
+                   'rv-sim-riscv32',
+                   'rv-sim-riscv64',
+                   'rv-jit-riscv32',
+                   'rv-jit-riscv64',
+                   'qemu-riscv32',
+                   'qemu-riscv64',
+                   'qemu-aarch64',
+                   'native-i386',
+                   'native-x86_64',
+                   'size-riscv32',
+                   'size-riscv64',
+                   'size-aarch64',
+                   'size-i386',
+                   'size-x86_64' ];
 
 var opts       = [ 'O3', 'Os' ];
 
@@ -182,6 +195,22 @@ function benchmark_size(benchmark, target, opt, runs)
   benchmark_print_row(fmt_size, data);
 }
 
+function benchmark_hist(benchmark, target, opt, runs)
+{
+  var system = 'rv-hist-' + target;
+  var hist_dir = stats_dir + '/' + system + '.dir';
+  if (!fs.existsSync(stats_dir)){
+    fs.mkdirSync(stats_dir);
+  }
+  if (!fs.existsSync(hist_dir)){
+    fs.mkdirSync(hist_dir);
+  }
+  var data = benchmark_cmd(benchmark, 'rv-sim',
+    ['-I', '-R', '-D', hist_dir, '-E', 'bin/' + target + '/' + benchmark + "." + opt]);
+  benchmark_add_row(benchmark, system, opt, data);
+  benchmark_print_row(fmt_inst, data);
+}
+
 function benchmark_sim(benchmark, target, opt, runs)
 {
   var system = 'rv-sim-' + target;
@@ -191,7 +220,6 @@ function benchmark_sim(benchmark, target, opt, runs)
     benchmark_add_row(benchmark, system, opt, data);
     benchmark_print_row(fmt_inst, data);
   }
-  // TODO - gather register and instruction frequencies
 }
 
 function benchmark_jit(benchmark, target, opt, runs)
@@ -231,6 +259,8 @@ function benchmark_native(benchmark, target, opt, runs)
 function benchmark_run(benchmark, target, opt, runs)
 {
   switch (target) {
+    case 'rv-hist-riscv32': benchmark_hist(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-hist-riscv64': benchmark_hist(benchmark, 'riscv64', opt, runs); break;
     case 'rv-sim-riscv32': benchmark_sim(benchmark, 'riscv32', opt, runs); break;
     case 'rv-sim-riscv64': benchmark_sim(benchmark, 'riscv64', opt, runs); break;
     case 'rv-jit-riscv32': benchmark_jit(benchmark, 'riscv32', opt, runs); break;
