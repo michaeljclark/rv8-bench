@@ -21,6 +21,8 @@ var fmt_size    = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['filesize', 
 
 var stats_dir   = "./stats"
 
+var max_sim_runs = 5;
+
 var row_count = 0;
 
 var last_fmt = null;
@@ -183,7 +185,7 @@ function benchmark_size(benchmark, target, opt, runs)
 function benchmark_sim(benchmark, target, opt, runs)
 {
   var system = 'rv-sim-' + target;
-  for (var i = 0; i < runs; i++) {
+  for (var i = 0; i < Math.min(runs, max_sim_runs); i++) {
     var data = benchmark_cmd(benchmark, 'rv-sim',
       ['-E', 'bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(benchmark, system, opt, data);
