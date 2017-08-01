@@ -310,10 +310,53 @@ function benchmark_peel_benchmark(benchmark, target, opt, runs)
   }
 }
 
-var db = [];
+function benchmark_gather_all()
+{
+  targets.forEach(function(target) {
+    var path = stats_dir + '/' + target + '.json';
+    var contents = fs.readFileSync(path);
+    var arr = JSON.parse(contents);
+    opts.forEach(function(opt) {
+      benchmarks.forEach(function(benchmark) {
+        var best_runtime = -1, best_index = -1;
+        for (var i = 0; i < arr.length; i++) {
+          var data = arr[i];
+          if (data['opt'] != opt) continue;
+          if (data['benchmark'] != benchmark) continue;
+          if (best_runtime == -1 || data['runtime'] > best_runtime) {
+            best_index = i;
+            best_runtime = data['runtime'];
+          }
+        }
+        if (best_index == -1) return;
+        var data = arr[best_index];
+        if ('filesize' in data) {
+          benchmark_print_row(fmt_size, data);
+        } else if ('instret' in data) {
+          benchmark_print_row(fmt_inst, data);
+        } else {
+          benchmark_print_row(fmt_time, data);
+        }
+      });
+    });
+  });
+}
 
-if (process.argv.length != 6) {
-   console.log('usage: npm start <benchmark> <target> <opt> <runs>');
+var help_or_error = false;
+
+var task = process.argv[2];
+if (task == "gather" && process.argv.length == 3) {
+  //
+} else if (task == "bench" && process.argv.length == 7) {
+  //
+} else {
+  help_or_error = true;
+}
+
+if (help_or_error) {
+   console.log('usage: npm start gather');
+   console.log('');
+   console.log('usage: npm start bench <benchmark> <target> <opt> <runs>');
    console.log('');
    console.log('<benchmark>  [ all | ' + benchmarks.join(' | ') + ' ]');
    console.log('');
@@ -324,26 +367,34 @@ if (process.argv.length != 6) {
    process.exit();
 }
 
-var benchmark = process.argv[2];
-var target = process.argv[3];
-var opt = process.argv[4];
-var runs = parseInt(process.argv[5]);
-
-if (benchmarks.indexOf(benchmark) == -1 && benchmark != 'all') {
-  console.log('unknown benchmark ' + benchmark);
-  process.exit();
-} else if (targets.indexOf(target) == -1 && target != 'all') {
-  console.log('unknown target ' + target);
-  process.exit();
-} else if (opts.indexOf(opt) == -1 && opt != 'all') {
-  console.log('unknown opt ' + opt);
-  process.exit();
+if (task == "gather")
+{
+  benchmark_gather_all();
 }
 
-console.log('benchmark  : ' + benchmark);
-console.log('target     : ' + target);
-console.log('opt        : ' + opt);
-console.log('runs       : ' + runs);
-console.log('');
+if (task == "bench")
+{
+  var benchmark = process.argv[3];
+  var target = process.argv[4];
+  var opt = process.argv[5];
+  var runs = parseInt(process.argv[6]);
 
-benchmark_peel_benchmark(benchmark, target, opt, runs);
+  if (benchmarks.indexOf(benchmark) == -1 && benchmark != 'all') {
+    console.log('unknown benchmark ' + benchmark);
+    process.exit();
+  } else if (targets.indexOf(target) == -1 && target != 'all') {
+    console.log('unknown target ' + target);
+    process.exit();
+  } else if (opts.indexOf(opt) == -1 && opt != 'all') {
+    console.log('unknown opt ' + opt);
+    process.exit();
+  }
+
+  console.log('benchmark  : ' + benchmark);
+  console.log('target     : ' + target);
+  console.log('opt        : ' + opt);
+  console.log('runs       : ' + runs);
+  console.log('');
+
+  benchmark_peel_benchmark(benchmark, target, opt, runs);
+}

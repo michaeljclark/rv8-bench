@@ -74,5 +74,6 @@ make
 To see how to run the benchmarks execute `npm start` for usage instructions:
 
 ```
-npm start
+npm start bench <benchmark> <target> <opt> <runs>
+npm start gather
 ```
