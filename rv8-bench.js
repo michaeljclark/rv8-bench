@@ -312,6 +312,80 @@ function benchmark_peel_benchmark(benchmark, target, opt, runs)
 
 function benchmark_gather_all()
 {
+  var keys = {};
+  var gather = {};
+  benchmarks.forEach(function(benchmark) {
+    gather[benchmark] = {};
+  });
+  targets.forEach(function(target) {
+    var path = stats_dir + '/' + target + '.json';
+    var contents = fs.readFileSync(path);
+    var arr = JSON.parse(contents);
+    opts.forEach(function(opt) {
+      benchmarks.forEach(function(benchmark) {
+        var best_runtime = -1, best_index = -1;
+        for (var i = 0; i < arr.length; i++) {
+          var data = arr[i];
+          if (data['opt'] != opt) continue;
+          if (data['benchmark'] != benchmark) continue;
+          if (best_runtime == -1 || data['runtime'] > best_runtime) {
+            best_index = i;
+            best_runtime = data['runtime'];
+          }
+        }
+        if (best_index == -1) return;
+        var data = arr[best_index];
+        for (var key in data) {
+          if (!data.hasOwnProperty(key)) continue;
+          if (key == 'benchmark') continue;
+          if (key == 'opt') continue;
+          if (key == 'system') continue;
+          if (key == 'dmips') continue;
+          if (key == 'runtime' && target.startsWith('size')) continue;
+          if (target.startsWith('rv-hist')) continue;
+          var new_key = target + '_' + opt + '_' + key;
+          new_key = new_key.replace(/-/g, '_');
+          gather[benchmark][new_key] = data[key];
+          keys[new_key] = true;
+        }
+      });
+    });
+  });
+
+  // sort keys
+  var keylist = [];
+  for (var key in keys) {
+    if (keys.hasOwnProperty(key)) {
+      keylist.push(key);
+    }
+  }
+  keylist.sort();
+
+  // write format line
+  var arr = [];
+  var format = 'benchmark';
+  for (var i = 0; i < keylist.length; i++) {
+    format += '\t' + keylist[i];
+  }
+  arr.push(format);
+
+  // write data, one row per benchmark
+  benchmarks.forEach(function(benchmark) {
+    var data = gather[benchmark];
+    var row = benchmark;
+    for (var i = 0; i < keylist.length; i++) {
+      row += '\t' + gather[benchmark][keylist[i]];
+    }
+    arr.push(row);
+  });
+  arr.push('');
+
+  // write to file
+  fs.writeFileSync("benchmarks.dat", arr.join("\n"));
+}
+
+function benchmark_print_all()
+{
   targets.forEach(function(target) {
     var path = stats_dir + '/' + target + '.json';
     var contents = fs.readFileSync(path);
@@ -347,6 +421,8 @@ var help_or_error = false;
 var task = process.argv[2];
 if (task == "gather" && process.argv.length == 3) {
   //
+} else if (task == "print" && process.argv.length == 3) {
+  //
 } else if (task == "bench" && process.argv.length == 7) {
   //
 } else {
@@ -355,6 +431,8 @@ if (task == "gather" && process.argv.length == 3) {
 
 if (help_or_error) {
    console.log('usage: npm start gather');
+   console.log('');
+   console.log('usage: npm start print');
    console.log('');
    console.log('usage: npm start bench <benchmark> <target> <opt> <runs>');
    console.log('');
@@ -370,6 +448,11 @@ if (help_or_error) {
 if (task == "gather")
 {
   benchmark_gather_all();
+}
+
+if (task == "print")
+{
+  benchmark_print_all();
 }
 
 if (task == "bench")
