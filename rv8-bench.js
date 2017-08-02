@@ -343,8 +343,8 @@ function benchmark_gather_all()
           if (key == 'dmips') continue;
           if (key == 'runtime' && target.startsWith('size')) continue;
           if (target.startsWith('rv-hist')) continue;
-          var new_key = target + '_' + opt + '_' + key;
-          new_key = new_key.replace(/-/g, '_');
+          var new_key = target + '-' + opt + '-' + key;
+          new_key = new_key.replace(/_/g, '-');
           gather[benchmark][new_key] = data[key];
           keys[new_key] = true;
         }
