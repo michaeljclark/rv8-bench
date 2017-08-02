@@ -10,19 +10,19 @@ set ylabel "Filesize (bytes)" offset 2,0,0
 set yrange [0:150000]
 
 set output "svg/filesize-O3.svg"
-set title "rv8-bench (File size -O3)"
+set title "rv8-bench (Filesize -O3)"
 plot 'data/benchmarks.dat' using \
 	'aarch64-O3-filesize':xtic(1) ti col, \
-	'' u 'i386-O3-filesize' ti col, \
 	'' u 'riscv32-O3-filesize' ti col, \
 	'' u 'riscv64-O3-filesize' ti col, \
+	'' u 'x86-32-O3-filesize' ti col, \
 	'' u 'x86-64-O3-filesize' ti col
 
 set output "svg/filesize-Os.svg"
-set title "rv8-bench (File size -Os)"
+set title "rv8-bench (Filesize -Os)"
 plot 'data/benchmarks.dat' using \
 	'aarch64-Os-filesize':xtic(1) ti col, \
-	'' u 'i386-Os-filesize' ti col, \
 	'' u 'riscv32-Os-filesize' ti col, \
 	'' u 'riscv64-Os-filesize' ti col, \
+	'' u 'x86-32-Os-filesize' ti col, \
 	'' u 'x86-64-Os-filesize' ti col

@@ -347,6 +347,8 @@ function benchmark_gather_all()
           var new_key = target + '-' + opt + '-' + key;
           new_key = new_key.replace(/_/g, '-');
           new_key = new_key.replace(/^size-/, '');
+          new_key = new_key.replace(/x86-uops/, 'uops');
+          new_key = new_key.replace(/i386/, 'x86-32');
           gather[benchmark][new_key] = data[key];
           keys[new_key] = true;
         }
@@ -368,6 +370,7 @@ function benchmark_gather_all()
   var format = 'benchmark';
   for (var i = 0; i < keylist.length; i++) {
     format += '\t' + keylist[i];
+    console.log(keylist[i]);
   }
   arr.push(format);
 
