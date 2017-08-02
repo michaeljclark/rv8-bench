@@ -346,6 +346,7 @@ function benchmark_gather_all()
           if (target.startsWith('rv-hist')) continue;
           var new_key = target + '-' + opt + '-' + key;
           new_key = new_key.replace(/_/g, '-');
+          new_key = new_key.replace(/^size-/, '');
           gather[benchmark][new_key] = data[key];
           keys[new_key] = true;
         }
