@@ -14,8 +14,7 @@ set grid xtics ytics
 set output "svg/operations-O3-64.svg"
 set title "rv8-bench (Operations -O3 64-bit)"
 plot 'data/benchmarks.dat' using \
-	'native-x86-64-O3-cycles':xtic(1) ti col, \
-	'' u 'native-x86-64-O3-instret' ti col, \
+	'native-x86-64-O3-instret':xtic(1) ti col, \
 	'' u 'native-x86-64-O3-uops-executed' ti col, \
 	'' u 'native-x86-64-O3-uops-issued' ti col, \
 	'' u 'native-x86-64-O3-uops-retired-all' ti col, \
@@ -25,8 +24,7 @@ plot 'data/benchmarks.dat' using \
 set output "svg/operations-Os-64.svg"
 set title "rv8-bench (Operations -Os 64-bit)"
 plot 'data/benchmarks.dat' using \
-	'native-x86-64-Os-cycles':xtic(1) ti col, \
-	'' u 'native-x86-64-Os-instret' ti col, \
+	'native-x86-64-Os-instret':xtic(1) ti col, \
 	'' u 'native-x86-64-Os-uops-executed' ti col, \
 	'' u 'native-x86-64-Os-uops-issued' ti col, \
 	'' u 'native-x86-64-Os-uops-retired-all' ti col, \
@@ -38,8 +36,7 @@ set yrange [0:16e9]
 set output "svg/operations-O3-32.svg"
 set title "rv8-bench (Operations -O3 32-bit)"
 plot 'data/benchmarks.dat' using \
-	'native-x86-32-O3-cycles':xtic(1) ti col, \
-	'' u 'native-x86-32-O3-instret' ti col, \
+	'native-x86-32-O3-instret':xtic(1) ti col, \
 	'' u 'native-x86-32-O3-uops-executed' ti col, \
 	'' u 'native-x86-32-O3-uops-issued' ti col, \
 	'' u 'native-x86-32-O3-uops-retired-all' ti col, \
@@ -49,8 +46,7 @@ plot 'data/benchmarks.dat' using \
 set output "svg/operations-Os-32.svg"
 set title "rv8-bench (Operations -Os 32-bit)"
 plot 'data/benchmarks.dat' using \
-	'native-x86-32-Os-cycles':xtic(1) ti col, \
-	'' u 'native-x86-32-Os-instret' ti col, \
+	'native-x86-32-Os-instret':xtic(1) ti col, \
 	'' u 'native-x86-32-Os-uops-executed' ti col, \
 	'' u 'native-x86-32-Os-uops-issued' ti col, \
 	'' u 'native-x86-32-Os-uops-retired-all' ti col, \
