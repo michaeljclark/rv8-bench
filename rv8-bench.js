@@ -33,6 +33,7 @@ var fmt_inst   = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['runtime', 8]
 var fmt_size    = [ ['benchmark', 15], ['system', 15], ['opt', 3], ['filesize', 8] ]
 
 var stats_dir   = "./stats"
+var data_dir    = "./data"
 
 var max_sim_runs = 5;
 
@@ -381,7 +382,10 @@ function benchmark_gather_all()
   arr.push('');
 
   // write to file
-  fs.writeFileSync("benchmarks.dat", arr.join("\n"));
+  if (!fs.existsSync(data_dir)) {
+    fs.mkdirSync(data_dir);
+  }
+  fs.writeFileSync(data_dir + '/benchmarks.dat', arr.join("\n"));
 }
 
 function benchmark_print_all()
