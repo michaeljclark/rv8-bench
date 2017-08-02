@@ -9,6 +9,8 @@ set xtic scale 0
 set ylabel "Operations" offset 2,0,0
 set yrange [0:8e9]
 
+set grid xtics ytics
+
 set output "svg/operations-O3-64.svg"
 set title "rv8-bench (Operations -O3 64-bit)"
 plot 'data/benchmarks.dat' using \

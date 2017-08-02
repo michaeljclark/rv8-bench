@@ -9,6 +9,8 @@ set xtic scale 0
 set ylabel "Filesize (bytes)" offset 2,0,0
 set yrange [0:150000]
 
+set grid xtics ytics
+
 set output "svg/filesize-O3.svg"
 set title "rv8-bench (Filesize -O3)"
 plot 'data/benchmarks.dat' using \
