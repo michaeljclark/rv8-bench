@@ -199,7 +199,7 @@ function benchmark_size(benchmark, target, opt, runs)
 function benchmark_hist(benchmark, target, opt, runs)
 {
   var system = 'rv-hist-' + target;
-  var hist_dir = stats_dir + '/' + system + '.dir';
+  var hist_dir = stats_dir + '/' + system + '-' + benchmark + '-' + opt + '.dir';
   if (!fs.existsSync(stats_dir)){
     fs.mkdirSync(stats_dir);
   }
