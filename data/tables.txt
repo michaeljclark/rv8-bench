@@ -1,0 +1,67 @@
+runtime-O3-64
+	native-x86-32-O3-runtime
+	rv-jit-riscv32-O3-runtime
+	qemu-riscv32-O3-runtime
+
+runtime-Os-64
+	native-x86-32-Os-runtime
+	rv-jit-riscv32-Os-runtime
+	qemu-riscv32-Os-runtime
+
+runtime-O3-32
+	native-x86-64-O3-runtime
+	rv-jit-riscv64-O3-runtime
+	qemu-riscv64-O3-runtime
+	qemu-aarch64-O3-runtime
+
+runtime-Os-32
+	native-x86-64-Os-runtime
+	rv-jit-riscv64-Os-runtime
+	qemu-riscv64-Os-runtime
+	qemu-aarch64-Os-runtime' ti col
+
+filesize-O3
+	aarch64-O3-filesize
+	riscv32-O3-filesize
+	riscv64-O3-filesize
+	x86-32-O3-filesize
+	x86-64-O3-filesize
+
+filesize-Os
+	aarch64-Os-filesize
+	riscv32-Os-filesize
+	riscv64-Os-filesize
+	x86-32-Os-filesize
+	x86-64-Os-filesize
+
+operations-O3-64
+	native-x86-64-O3-instret
+	native-x86-64-O3-uops-executed
+	native-x86-64-O3-uops-issued
+	native-x86-64-O3-uops-retired-all
+	native-x86-64-O3-uops-retired-slots
+	rv-sim-riscv64-O3-instret
+
+operations-Os-64
+	native-x86-64-Os-instret
+	native-x86-64-Os-uops-executed
+	native-x86-64-Os-uops-issued
+	native-x86-64-Os-uops-retired-all
+	native-x86-64-Os-uops-retired-slots
+	rv-sim-riscv64-Os-instret
+
+operations-O3-32
+	native-x86-32-O3-instret
+	native-x86-32-O3-uops-executed
+	native-x86-32-O3-uops-issued
+	native-x86-32-O3-uops-retired-all
+	native-x86-32-O3-uops-retired-slots
+	rv-sim-riscv32-O3-instret' ti col
+
+operations-Os-32
+	native-x86-32-Os-instret
+	native-x86-32-Os-uops-executed
+	native-x86-32-Os-uops-issued
+	native-x86-32-Os-uops-retired-all
+	native-x86-32-Os-uops-retired-slots
+	rv-sim-riscv32-Os-instret' ti col
