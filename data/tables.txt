@@ -50,7 +50,7 @@ ratio-Os-32    "Performance Ratio 32-bit -Os (smaller is better)"
 	rv-jit     "%f"   rv-jit-riscv64-Os-runtime/native-x86-64-Os-runtime
 	native     "%f"   1.00
 
-filesize-O3    "Compiled File Size -O3"
+filesize-O3    "Compiled File Size (bytes) -O3"
 	program    "%s"   program
 	aarch64    "%d"   aarch64-O3-filesize
 	riscv32    "%d"   riscv32-O3-filesize
@@ -58,7 +58,7 @@ filesize-O3    "Compiled File Size -O3"
 	x86-32     "%d"   x86-32-O3-filesize
 	x86-64     "%d"   x86-64-O3-filesize
 
-filesize-Os    "Compiled File Size -O3"
+filesize-Os    "Compiled File Size (bytes) -O3"
 	program    "%s"   program
 	aarch64    "%d"   aarch64-Os-filesize
 	riscv32    "%d"   riscv32-Os-filesize
