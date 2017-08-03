@@ -3,6 +3,7 @@
  */
 
 var fs = require("fs");
+var util = require("util");
 var child_process = require('child_process');
 
 var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
@@ -414,7 +415,7 @@ function benchmark_gather_all()
   var format = 'benchmark';
   for (var i = 0; i < keylist.length; i++) {
     format += '\t' + keylist[i];
-    console.log(keylist[i]);
+    //console.log(keylist[i]);
   }
   arr.push(format);
 
@@ -451,16 +452,87 @@ function benchmark_gather_all()
       tables.push(table);
     } else if (comps.length == 3) {
       column = {
-        name: comps[0],
+        title: comps[0],
         fmt: comps[1],
-        data: comps[2]
+        name: comps[2]
       };
       table.columns.push(column);
     }
   }
 
   // print tables
-
+  for (var i = 0; i < tables.length; i++) {
+    var table = tables[i];
+    var title = table.title;
+    var columns = table.columns;
+    var head1 = '', head2 = '';
+    for (var j = 0; j < columns.length; j++) {
+      var column = columns[j];
+      if (j != 0) { head1 += ' | '; head2 += ' | '; }
+      head1 += column.title;
+      if (j != 0) { head2 += '--:'; } else { head2 += ':--'; }
+    }
+    console.log('**' + table.title + '**')
+    console.log('');
+    console.log(head1);
+    console.log(head2);
+    var total_sum = {}, total_geo = {};
+    for (var j = 0; j < columns.length; j++) {
+      var column = columns[j];
+      var name = column.name;
+      total_sum[name] = 0;
+      total_geo[name] = 1;
+    }
+    benchmarks.forEach(function(benchmark) {
+      var data = gather[benchmark];
+      var row = '';
+      for (var j = 0; j < columns.length; j++) {
+        var column = columns[j];
+        var fmt = column.fmt;
+        var name = column.name;
+        var ratio = name.split('/');
+        var field_data;
+        if (name > 0) {
+          field_data = name;
+        } else if (name == 'program') {
+          field_data = benchmark;
+        } else if (ratio.length > 1) {
+          field_data = Math.round(data[ratio[0]] / data[ratio[1]] * 1000) / 1000.0;
+        } else {
+          field_data = data[name];
+        }
+        if (field_data > 0) {
+          total_sum[name] = total_sum[name] + parseFloat(field_data);
+          total_geo[name] = total_geo[name] * parseFloat(field_data);
+        }
+        var field_text = util.format(fmt, field_data);
+        if (j != 0) { row += ' | '; }
+        row += field_text;
+      }
+      console.log(row);
+    });
+    var row = '';
+    var type = 'Sum';
+    if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
+    for (var j = 0; j < columns.length; j++) {
+      var column = columns[j];
+      var fmt = column.fmt;
+      var name = column.name;
+      var field_data;
+      if (name == 'program') {
+        field_data = type;
+      } else if (type == 'Geomean') {
+        field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length) * 1000) / 1000;
+      } else if (type == 'Sum') {
+        field_data = Math.round(total_sum[name] * 1000) / 1000;
+      }
+      var field_text = util.format(fmt, field_data);
+      if (j != 0) { row += ' | '; }
+      row += field_text;
+    }
+    console.log(row);
+    console.log();
+  }
 }
 
 function benchmark_print_all()
