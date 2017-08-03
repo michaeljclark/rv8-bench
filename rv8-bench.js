@@ -449,7 +449,7 @@ function benchmark_gather_all()
         columns: []
       };
       tables.push(table);
-    } else if (comps.length = 3) {
+    } else if (comps.length == 3) {
       column = {
         name: comps[0],
         fmt: comps[1],
