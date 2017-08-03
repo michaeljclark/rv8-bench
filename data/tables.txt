@@ -91,7 +91,7 @@ operations-O3-32      "Operations x86-32 vs riscv32 -O3"
 	x86-uops-issued   "%d" native-x86-32-O3-uops-issued
 	x86-uops-retired  "%d" native-x86-32-O3-uops-retired-all
 	x86-uops-slots    "%d" native-x86-32-O3-uops-retired-slots
-	riscv32-instret   "%d" rv-sim-riscv32-O3-instret' ti col
+	riscv32-instret   "%d" rv-sim-riscv32-O3-instret
 
 operations-Os-32      "Operations x86-32 vs riscv32 -Os"
 	program           "%s" program
@@ -100,4 +100,4 @@ operations-Os-32      "Operations x86-32 vs riscv32 -Os"
 	x86-uops-issued   "%d" native-x86-32-Os-uops-issued
 	x86-uops-retired  "%d" native-x86-32-Os-uops-retired-all
 	x86-uops-slots    "%d" native-x86-32-Os-uops-retired-slots
-	riscv32-instret   "%d" rv-sim-riscv32-Os-instret' ti col
+	riscv32-instret   "%d" rv-sim-riscv32-Os-instret
