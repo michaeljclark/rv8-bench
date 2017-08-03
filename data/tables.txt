@@ -50,7 +50,7 @@ ratio-Os-32    "Performance Ratio 32-bit -Os (smaller is better)"
 	rv-jit     "%f"   rv-jit-riscv64-Os-runtime/native-x86-64-Os-runtime
 	native     "%f"   1.00
 
-filesize-O3    "File size -O3"
+filesize-O3    "Compiled File Size -O3"
 	program    "%s"   program
 	aarch64    "%d"   aarch64-O3-filesize
 	riscv32    "%d"   riscv32-O3-filesize
@@ -58,7 +58,7 @@ filesize-O3    "File size -O3"
 	x86-32     "%d"   x86-32-O3-filesize
 	x86-64     "%d"   x86-64-O3-filesize
 
-filesize-Os    "File size -O3"
+filesize-Os    "Compiled File Size -O3"
 	program    "%s"   program
 	aarch64    "%d"   aarch64-Os-filesize
 	riscv32    "%d"   riscv32-Os-filesize
@@ -66,7 +66,7 @@ filesize-Os    "File size -O3"
 	x86-32     "%d"   x86-32-Os-filesize
 	x86-64     "%d"   x86-64-Os-filesize
 
-operations-O3-64      "Operations x86-64 vs riscv64 -O3"
+operations-O3-64      "Dynamic Operations x86-64 vs riscv64 -O3"
 	program           "%s" program
 	x86-instret       "%d" native-x86-64-O3-instret
 	x86-uops-executed "%d" native-x86-64-O3-uops-executed
@@ -75,7 +75,7 @@ operations-O3-64      "Operations x86-64 vs riscv64 -O3"
 	x86-uops-slots    "%d" native-x86-64-O3-uops-retired-slots
 	riscv64-instret   "%d" rv-sim-riscv64-O3-instret
 
-operations-Os-64      "Operations x86-64 vs riscv64 -Os"
+operations-Os-64      "Dynamic Operations x86-64 vs riscv64 -Os"
 	program           "%s" program
 	x86-instret       "%d" native-x86-64-Os-instret
 	x86-uops-executed "%d" native-x86-64-Os-uops-executed
@@ -84,7 +84,7 @@ operations-Os-64      "Operations x86-64 vs riscv64 -Os"
 	x86-uops-slots    "%d" native-x86-64-Os-uops-retired-slots
 	riscv64-instret   "%d" rv-sim-riscv64-Os-instret
 
-operations-O3-32      "Operations x86-32 vs riscv32 -O3"
+operations-O3-32      "Dynamic Operations x86-32 vs riscv32 -O3"
 	program           "%s" program
 	x86-instret       "%d" native-x86-32-O3-instret
 	x86-uops-executed "%d" native-x86-32-O3-uops-executed
@@ -93,7 +93,7 @@ operations-O3-32      "Operations x86-32 vs riscv32 -O3"
 	x86-uops-slots    "%d" native-x86-32-O3-uops-retired-slots
 	riscv32-instret   "%d" rv-sim-riscv32-O3-instret
 
-operations-Os-32      "Operations x86-32 vs riscv32 -Os"
+operations-Os-32      "Dynamic Operations x86-32 vs riscv32 -Os"
 	program           "%s" program
 	x86-instret       "%d" native-x86-32-Os-instret
 	x86-uops-executed "%d" native-x86-32-Os-uops-executed
