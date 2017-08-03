@@ -7,7 +7,7 @@ runtime-O3-64  "Runtime 64-bit -O3 (seconds)"
 ratio-O3-64    "Performance Ratio 64-bit -O3 (smaller is better)"
 	program    "%s"   program
 	native     "%.f"  1.00
-	jit-rv64    "%.2f" rv-jit-riscv32-O3-runtime/native-x86-32-O3-runtime
+	jit-rv64   "%.2f" rv-jit-riscv32-O3-runtime/native-x86-32-O3-runtime
 	qemu-rv64  "%.2f" qemu-riscv32-O3-runtime/native-x86-32-O3-runtime
 
 runtime-Os-64  "Runtime 64-bit -Os (seconds)"
@@ -67,7 +67,7 @@ filesize-Os    "File size -O3"
 	x86-64     "%d"   x86-64-Os-filesize
 
 operations-O3-64      "Operations x86-64 vs riscv64 -O3"
-	program    "%s"   program
+	program           "%s" program
 	x86-instret       "%d" native-x86-64-O3-instret
 	x86-uops-executed "%d" native-x86-64-O3-uops-executed
 	x86-uops-issued   "%d" native-x86-64-O3-uops-issued
@@ -76,28 +76,28 @@ operations-O3-64      "Operations x86-64 vs riscv64 -O3"
 	riscv64-instret   "%d" rv-sim-riscv64-O3-instret
 
 operations-Os-64      "Operations x86-64 vs riscv64 -Os"
-	program    "%s"   program
+	program           "%s" program
 	x86-instret       "%d" native-x86-64-Os-instret
-	x86-uops-executed native-x86-64-Os-uops-executed
-	x86-uops-issued   native-x86-64-Os-uops-issued
-	x86-uops-retired  native-x86-64-Os-uops-retired-all
-	x86-uops-slots    native-x86-64-Os-uops-retired-slots
+	x86-uops-executed "%d" native-x86-64-Os-uops-executed
+	x86-uops-issued   "%d" native-x86-64-Os-uops-issued
+	x86-uops-retired  "%d" native-x86-64-Os-uops-retired-all
+	x86-uops-slots    "%d" native-x86-64-Os-uops-retired-slots
 	riscv64-instret   "%d" rv-sim-riscv64-Os-instret
 
 operations-O3-32      "Operations x86-32 vs riscv32 -O3"
-	program    "%s"   program
+	program           "%s" program
 	x86-instret       "%d" native-x86-32-O3-instret
-	x86-uops-executed native-x86-32-O3-uops-executed
-	x86-uops-issued   native-x86-32-O3-uops-issued
-	x86-uops-retired  native-x86-32-O3-uops-retired-all
-	x86-uops-slots    native-x86-32-O3-uops-retired-slots
+	x86-uops-executed "%d" native-x86-32-O3-uops-executed
+	x86-uops-issued   "%d" native-x86-32-O3-uops-issued
+	x86-uops-retired  "%d" native-x86-32-O3-uops-retired-all
+	x86-uops-slots    "%d" native-x86-32-O3-uops-retired-slots
 	riscv32-instret   "%d" rv-sim-riscv32-O3-instret' ti col
 
 operations-Os-32      "Operations x86-32 vs riscv32 -Os"
-	program    "%s"   program
+	program           "%s" program
 	x86-instret       "%d" native-x86-32-Os-instret
-	x86-uops-executed native-x86-32-Os-uops-executed
-	x86-uops-issued   native-x86-32-Os-uops-issued
-	x86-uops-retired  native-x86-32-Os-uops-retired-all
-	x86-uops-slots    native-x86-32-Os-uops-retired-slots
+	x86-uops-executed "%d" native-x86-32-Os-uops-executed
+	x86-uops-issued   "%d" native-x86-32-Os-uops-issued
+	x86-uops-retired  "%d" native-x86-32-Os-uops-retired-all
+	x86-uops-slots    "%d" native-x86-32-Os-uops-retired-slots
 	riscv32-instret   "%d" rv-sim-riscv32-Os-instret' ti col
