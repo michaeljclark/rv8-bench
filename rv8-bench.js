@@ -499,7 +499,11 @@ function benchmark_gather_all()
         } else if (ratio.length > 1) {
           field_data = Math.round(data[ratio[0]] / data[ratio[1]] * 1000) / 1000.0;
         } else {
-          field_data = data[name];
+          if (table.name.indexOf("operations") == 0) {
+            field_data = Math.round(parseInt(data[name]) / 1000000);
+          } else {
+            field_data = data[name];
+          }
         }
         if (field_data > 0) {
           total_sum[name] = total_sum[name] + parseFloat(field_data);
@@ -514,6 +518,7 @@ function benchmark_gather_all()
     var row = '';
     var type = 'Sum';
     if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
+    else if (table.name.indexOf('operations') == 0) { type = 'Geomean'; }
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
       var fmt = column.fmt;
@@ -522,7 +527,11 @@ function benchmark_gather_all()
       if (name == 'program') {
         field_data = type;
       } else if (type == 'Geomean') {
-        field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length) * 1000) / 1000;
+        if (table.name.indexOf('operations') == 0) {
+          field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length));
+        } else {
+          field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length) * 1000) / 1000;
+        }
       } else if (type == 'Sum') {
         field_data = Math.round(total_sum[name] * 1000) / 1000;
       }
