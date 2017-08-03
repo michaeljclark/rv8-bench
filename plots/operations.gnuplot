@@ -7,7 +7,7 @@ set boxwidth 0.9
 set xtic scale 0
 
 set ylabel "Operations" offset 2,0,0
-set yrange [0:8e9]
+set yrange [0:1e10]
 
 set grid xtics ytics
 
@@ -31,7 +31,7 @@ plot 'data/benchmarks.dat' using \
 	'' u 'native-x86-64-Os-uops-retired-slots' ti col, \
 	'' u 'rv-sim-riscv64-Os-instret' ti col
 
-set yrange [0:16e9]
+set yrange [0:2e10]
 
 set output "svg/operations-O3-32.svg"
 set title "rv8-bench (Operations -O3 32-bit)"

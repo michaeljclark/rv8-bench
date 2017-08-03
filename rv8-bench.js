@@ -311,6 +311,50 @@ function benchmark_peel_benchmark(benchmark, target, opt, runs)
   }
 }
 
+function parse_table_line(line)
+{
+  var state = 0;
+  var comps = [];
+  var buf = "";
+  for (var i = 0; i < line.length; i++) {
+    var c = line.charAt(i);
+    switch (state) {
+      case 0: /* whitespace */
+        if (c == ' ' || c == '\t') {
+          // skip
+        } else if (c == '"') {
+          state = 1;
+        } else {
+          state = 2;
+          buf += c;
+        }
+        break;
+      case 1: /* quoted string */
+        if (c == '"') {
+          comps.push(buf);
+          buf = '';
+          state = 0;
+        } else {
+          buf += c;
+        }
+        break;
+      case 2: /* unquoted string */
+        if (c == ' ') {
+          comps.push(buf);
+          buf = '';
+          state = 0;
+        } else {
+          buf += c;
+        }
+        break;
+    }
+  }
+  if (buf.length > 0) {
+    comps.push(buf);
+  }
+  return comps;
+}
+
 function benchmark_gather_all()
 {
   var keys = {};
@@ -390,6 +434,33 @@ function benchmark_gather_all()
     fs.mkdirSync(data_dir);
   }
   fs.writeFileSync(data_dir + '/benchmarks.dat', arr.join("\n"));
+
+  // read tables
+  var tables = [];
+  var table = null, column = null;
+  var content = fs.readFileSync(data_dir + '/tables.txt');
+  var tmeta_arr = content.toString().split('\n');
+  for (var i = 0; i < tmeta_arr.length; i++) {
+    var comps = parse_table_line(tmeta_arr[i]);
+    if (comps.length == 2) {
+      table = {
+        name: comps[0],
+        title: comps[1],
+        columns: []
+      };
+      tables.push(table);
+    } else if (comps.length = 3) {
+      column = {
+        name: comps[0],
+        fmt: comps[1],
+        data: comps[2]
+      };
+      table.columns.push(column);
+    }
+  }
+
+  // print tables
+
 }
 
 function benchmark_print_all()
