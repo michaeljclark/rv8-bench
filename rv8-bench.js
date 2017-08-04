@@ -525,7 +525,7 @@ function benchmark_gather_all()
       var name = column.name;
       var field_data;
       if (name == 'program') {
-        field_data = type;
+        field_data =  '_(' + type + ')_';
       } else if (type == 'Geomean') {
         if (table.name.indexOf('operations') == 0) {
           field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length));
