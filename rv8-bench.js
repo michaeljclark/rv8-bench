@@ -374,7 +374,7 @@ function benchmark_gather_all()
           var data = arr[i];
           if (data['opt'] != opt) continue;
           if (data['benchmark'] != benchmark) continue;
-          if (best_runtime == -1 || data['runtime'] > best_runtime) {
+          if (best_index == -1 || data['runtime'] < best_runtime) {
             best_index = i;
             best_runtime = data['runtime'];
           }
@@ -415,9 +415,9 @@ function benchmark_gather_all()
   var format = 'benchmark';
   for (var i = 0; i < keylist.length; i++) {
     format += '\t' + keylist[i];
-    //console.log(keylist[i]);
   }
   arr.push(format);
+  fs.writeFileSync(data_dir + '/keylist.txt', keylist.join("\n"));
 
   // write data, one row per benchmark
   benchmarks.forEach(function(benchmark) {
@@ -460,7 +460,8 @@ function benchmark_gather_all()
     }
   }
 
-  // print tables
+  // create tables
+  var table_markup = {};
   for (var i = 0; i < tables.length; i++) {
     var table = tables[i];
     var title = table.title;
@@ -472,10 +473,12 @@ function benchmark_gather_all()
       head1 += column.title;
       if (j != 0) { head2 += '--:'; } else { head2 += ':--'; }
     }
-    console.log('**' + table.title + '**')
-    console.log('');
-    console.log(head1);
-    console.log(head2);
+    var output = [];
+    table_markup[table.name] = output;
+    output.push('**' + table.title + '**')
+    output.push('');
+    output.push(head1);
+    output.push(head2);
     var total_sum = {}, total_geo = {};
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
@@ -513,7 +516,7 @@ function benchmark_gather_all()
         if (j != 0) { row += ' | '; }
         row += field_text;
       }
-      console.log(row);
+      output.push(row);
     });
     var row = '';
     var type = 'Sum';
@@ -539,9 +542,27 @@ function benchmark_gather_all()
       if (j != 0) { row += ' | '; }
       row += field_text;
     }
-    console.log(row);
-    console.log();
+    output.push(row);
+    output.push();
   }
+
+  // substitute template
+  var content = fs.readFileSync(data_dir + '/template.md');
+  var template_arr = content.toString().split('\n');
+  var output = [];
+  for (var i = 0; i < template_arr.length; i++) {
+    var line = template_arr[i];
+    if (line.indexOf('TABLE ') == 0) {
+      var table_name = line.substr(6);
+      var table_rows = table_markup[table_name];
+      for (var j = 0; j < table_rows.length; j++) {
+        output.push(table_rows[j]);
+      }
+    } else {
+      output.push(line);
+    }
+  }
+  fs.writeFileSync(data_dir + '/bench.md', output.join('\n'));
 }
 
 function benchmark_print_all()
@@ -557,7 +578,7 @@ function benchmark_print_all()
           var data = arr[i];
           if (data['opt'] != opt) continue;
           if (data['benchmark'] != benchmark) continue;
-          if (best_runtime == -1 || data['runtime'] > best_runtime) {
+          if (best_runtime == -1 || data['runtime'] < best_runtime) {
             best_index = i;
             best_runtime = data['runtime'];
           }
