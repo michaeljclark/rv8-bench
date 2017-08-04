@@ -2,28 +2,28 @@ runtime-O3-64  "Runtime 64-bit -O3 (seconds)"
 	program    "%s"   program
 	qemu-rv64  "%f"   qemu-riscv64-O3-runtime
 	qemu-arm64 "%f"   qemu-aarch64-O3-runtime
-	rv-jit     "%f"   rv-jit-riscv64-O3-runtime
+	jit-rv64   "%f"   rv-jit-riscv64-O3-runtime
 	x86-64     "%f"   native-x86-64-O3-runtime
 
 ratio-O3-64    "Performance Ratio 64-bit -O3 (smaller is better)"
 	program    "%s"   program
 	qemu-rv64  "%f"   qemu-riscv64-O3-runtime/native-x86-64-O3-runtime
 	qemu-arm64 "%f"   qemu-aarch64-O3-runtime/native-x86-64-O3-runtime
-	rv-jit     "%f"   rv-jit-riscv64-O3-runtime/native-x86-64-O3-runtime
+	jit-rv64   "%f"   rv-jit-riscv64-O3-runtime/native-x86-64-O3-runtime
 	x86-64     "%f"   1.00
 
 runtime-Os-64 "Runtime 64-bit -Os (seconds)"
 	program    "%s"   program
 	qemu-rv64  "%f"   qemu-riscv64-Os-runtime
 	qemu-arm64 "%f"   qemu-aarch64-Os-runtime
-	rv-jit     "%f"   rv-jit-riscv64-Os-runtime
+	jit-rv64   "%f"   rv-jit-riscv64-Os-runtime
 	x86-64     "%f"   native-x86-64-Os-runtime
 
 ratio-Os-64    "Performance Ratio 64-bit -Os (smaller is better)"
 	program    "%s"   program
 	qemu-rv64  "%f"   qemu-riscv64-Os-runtime/native-x86-64-Os-runtime
 	qemu-arm64 "%f"   qemu-aarch64-Os-runtime/native-x86-64-Os-runtime
-	rv-jit     "%f"   rv-jit-riscv64-Os-runtime/native-x86-64-Os-runtime
+	jit-rv64   "%f"   rv-jit-riscv64-Os-runtime/native-x86-64-Os-runtime
 	x86-64     "%f"   1.00
 
 runtime-O3-32  "Runtime 32-bit -O3 (seconds)"
