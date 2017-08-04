@@ -356,6 +356,16 @@ function parse_table_line(line)
   return comps;
 }
 
+function roundWithTrailingZeros(n, d)
+{
+  b = Math.pow(10, d);
+  n = Math.round(n * b) / b;
+  var s = n.toString();
+  if (s.indexOf('.') == -1) s += '.';
+  while (s.length < (s.indexOf('.') + d + 1)) s += '0';
+  return s;
+}
+
 function benchmark_gather_all()
 {
   var keys = {};
@@ -500,12 +510,14 @@ function benchmark_gather_all()
         } else if (name == 'program') {
           field_data = benchmark;
         } else if (ratio.length > 1) {
-          field_data = Math.round(data[ratio[0]] / data[ratio[1]] * 1000) / 1000.0;
+          field_data = roundWithTrailingZeros(data[ratio[0]] / data[ratio[1]], 2);
         } else {
           if (table.name.indexOf("operations") == 0) {
             field_data = Math.round(parseInt(data[name]) / 1000000);
-          } else {
+          } else if (table.name.indexOf("filesize") == 0) {
             field_data = data[name];
+          } else {
+            field_data = roundWithTrailingZeros(data[name], 2);
           }
         }
         if (field_data > 0) {
@@ -533,10 +545,10 @@ function benchmark_gather_all()
         if (table.name.indexOf('operations') == 0) {
           field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length));
         } else {
-          field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length) * 1000) / 1000;
+          field_data = roundWithTrailingZeros(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length), 2);
         }
       } else if (type == 'Sum') {
-        field_data = Math.round(total_sum[name] * 1000) / 1000;
+        field_data = roundWithTrailingZeros(total_sum[name], 2);
       }
       var field_text = util.format(fmt, field_data);
       if (j != 0) { row += ' | '; }
