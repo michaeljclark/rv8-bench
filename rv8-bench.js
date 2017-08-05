@@ -538,7 +538,6 @@ function benchmark_gather_all()
     var type = 'Sum';
     if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
     else if (table.name.indexOf('mips') == 0) { type = 'Geomean'; }
-    else if (table.name.indexOf('operations') == 0) { type = 'Geomean'; }
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
       var fmt = column.fmt;
