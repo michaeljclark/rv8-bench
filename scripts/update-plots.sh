@@ -7,3 +7,9 @@ for i in aes dhrystone miniz norx primes qsort sha512; do
 	grep -v register <stats/rv-hist-riscv64-$i.tmp >>stats/rv-hist-riscv64-$i.csv
 	rm -f stats/rv-hist-riscv64-$i.tmp
 done
+
+gnuplot plots/filesize.gnuplot
+gnuplot plots/mips.gnuplot
+gnuplot plots/operations.gnuplot
+gnuplot plots/registers.gnuplot
+gnuplot plots/runtime.gnuplot
