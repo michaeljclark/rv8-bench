@@ -27,6 +27,8 @@ plot 'data/benchmarks.dat' using \
 	'' u 'qemu-riscv64-Os-runtime' ti col, \
 	'' u 'qemu-aarch64-Os-runtime' ti col
 
+set yrange [0:6]
+
 set output "svg/runtime-O3-32.svg"
 set title "rv8-bench (Runtime -O3 32-bit)"
 plot 'data/benchmarks.dat' using \
