@@ -6,6 +6,9 @@ set style fill solid border -1
 set boxwidth 0.9
 set xtic scale 0
 
+set style line 101 lc rgb '#606060' lt 1 lw 1
+set border ls 101
+
 set ylabel "Retired Operations" offset 2,0,0
 set yrange [0:1e10]
 
