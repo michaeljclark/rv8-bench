@@ -23,11 +23,11 @@ The following results have been plotted:
 
 Architecture | Compiler  | C Library | Compile options
 :--          | :--       | :--       | :--
-x86-32       | GCC 7.1.0 | musl libc | `-O3, -Os`
-x86-64       | GCC 7.1.0 | musl libc | `-O3, -Os`
-riscv32      | GCC 7.1.0 | musl libc | `-O3, -Os`
-riscv64      | GCC 7.1.0 | musl libc | `-O3, -Os`
-aarch64      | GCC 7.1.0 | musl libc | `-O3, -Os`
+x86-32       | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
+x86-64       | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
+riscv32      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
+riscv64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
+aarch64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 
 **Host details**
 
