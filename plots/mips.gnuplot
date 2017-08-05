@@ -1,7 +1,7 @@
 set term svg
 set auto x
 set style data histogram
-set style histogram cluster gap 1
+set style histogram cluster gap 2
 set style fill solid border -1
 set boxwidth 0.9
 set xtic scale 0
