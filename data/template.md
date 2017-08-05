@@ -98,6 +98,16 @@ TABLE mips-Os-32
 
 ### Retired Micro-ops
 
+The following table describes the measured x86 performance counters:
+
+Counter       | x86 event mask              | description
+:------------ | :-------------------------- | :-----------------------------------
+instret       | `INST_RETIRED`              | total number of instructions retired
+uops-executed | `UOPS_EXECUTED.THREAD`      | uops executed _(unfused domain)_
+uops-issued   | `UOPS_ISSUED.ANY`           | uops issued _(fused domain)_
+uops-slots    | `UOPS_RETIRED.RETIRE_SLOTS` | uop retirement slots used _(fused domain)_
+uops-retired  | `UOPS_RETIRED.ANY`          | uops retired _(unfused domain)_
+
 Total retired micro-op/instruction counts comparing RISC-V and x86:
 
 ![operation counts -O3 64-bit]({{ site.url }}/plots/operations-O3-64.svg)
