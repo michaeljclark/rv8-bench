@@ -86,7 +86,7 @@ mips-Os-32            "Instructions per second (MIPS) x86-32 vs riscv32 -Os"
 	native-x86-mips   "%d" native-x86-32-Os-instret/native-x86-32-Os-runtime
 	rv8-riscv32-mips  "%d" rv-sim-riscv32-Os-instret/rv-jit-riscv32-Os-runtime
 
-operations-O3-64      "Total Dynamic Operations (Mops) x86-64 vs riscv64 -O3"
+operations-O3-64      "Retired Operations (Mops) x86-64 vs riscv64 -O3"
 	program           "%s" program
 	x86-instret       "%d" native-x86-64-O3-instret
 	x86-uops-executed "%d" native-x86-64-O3-uops-executed
@@ -95,7 +95,7 @@ operations-O3-64      "Total Dynamic Operations (Mops) x86-64 vs riscv64 -O3"
 	x86-uops-slots    "%d" native-x86-64-O3-uops-retired-slots
 	riscv64-instret   "%d" rv-sim-riscv64-O3-instret
 
-operations-Os-64      "Total Dynamic Operations (Mops) x86-64 vs riscv64 -Os"
+operations-Os-64      "Retired Operations (Mops) x86-64 vs riscv64 -Os"
 	program           "%s" program
 	x86-instret       "%d" native-x86-64-Os-instret
 	x86-uops-executed "%d" native-x86-64-Os-uops-executed
@@ -104,7 +104,7 @@ operations-Os-64      "Total Dynamic Operations (Mops) x86-64 vs riscv64 -Os"
 	x86-uops-slots    "%d" native-x86-64-Os-uops-retired-slots
 	riscv64-instret   "%d" rv-sim-riscv64-Os-instret
 
-operations-O3-32      "Total Dynamic Operations (Mops) x86-32 vs riscv32 -O3"
+operations-O3-32      "Retired Operations (Mops) x86-32 vs riscv32 -O3"
 	program           "%s" program
 	x86-instret       "%d" native-x86-32-O3-instret
 	x86-uops-executed "%d" native-x86-32-O3-uops-executed
@@ -113,7 +113,7 @@ operations-O3-32      "Total Dynamic Operations (Mops) x86-32 vs riscv32 -O3"
 	x86-uops-slots    "%d" native-x86-32-O3-uops-retired-slots
 	riscv32-instret   "%d" rv-sim-riscv32-O3-instret
 
-operations-Os-32      "Total Dynamic Operations (Mops) x86-32 vs riscv32 -Os"
+operations-Os-32      "Retired Operations (Mops) x86-32 vs riscv32 -Os"
 	program           "%s" program
 	x86-instret       "%d" native-x86-32-Os-instret
 	x86-uops-executed "%d" native-x86-32-Os-uops-executed

@@ -101,22 +101,22 @@ TABLE mips-Os-32
 Total retired micro-op/instruction counts comparing RISC-V and x86:
 
 ![operation counts -O3 64-bit]({{ site.url }}/plots/operations-O3-64.svg)
-_Figure 9: Dynamic operation counts -O3 64-bit_
+_Figure 9: Retired operation counts -O3 64-bit_
 
 TABLE operations-O3-64
 
 ![operation counts -Os 64-bit]({{ site.url }}/plots/operations-Os-64.svg)
-_Figure 10: Dynamic operation counts -Os 64-bit_
+_Figure 10: Retired operation counts -Os 64-bit_
 
 TABLE operations-Os-64
 
 ![operation counts -O3 32-bit]({{ site.url }}/plots/operations-O3-32.svg)
-_Figure 11: Dynamic operation counts -O3 32-bit_
+_Figure 11: Retired operation counts -O3 32-bit_
 
 TABLE operations-O3-32
 
 ![operation counts -Os 32-bit]({{ site.url }}/plots/operations-Os-32.svg)
-_Figure 12: Dynamic operation counts -Os 32-bit_
+_Figure 12: Retired operation counts -Os 32-bit_
 
 TABLE operations-Os-32
 
