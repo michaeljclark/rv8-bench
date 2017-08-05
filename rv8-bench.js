@@ -510,11 +510,15 @@ function benchmark_gather_all()
         } else if (name == 'program') {
           field_data = benchmark;
         } else if (ratio.length > 1) {
-          field_data = roundWithTrailingZeros(data[ratio[0]] / data[ratio[1]], 2);
+          if (table.name.indexOf('mips') == 0) {
+            field_data = Math.round((data[ratio[0]] / data[ratio[1]]) / 1000000);
+          } else {
+            field_data = roundWithTrailingZeros(data[ratio[0]] / data[ratio[1]], 2);
+          }
         } else {
-          if (table.name.indexOf("operations") == 0) {
+          if (table.name.indexOf('operations') == 0) {
             field_data = Math.round(parseInt(data[name]) / 1000000);
-          } else if (table.name.indexOf("filesize") == 0) {
+          } else if (table.name.indexOf('filesize') == 0) {
             field_data = data[name];
           } else {
             field_data = roundWithTrailingZeros(data[name], 2);
@@ -533,6 +537,7 @@ function benchmark_gather_all()
     var row = '';
     var type = 'Sum';
     if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
+    else if (table.name.indexOf('mips') == 0) { type = 'Geomean'; }
     else if (table.name.indexOf('operations') == 0) { type = 'Geomean'; }
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
@@ -542,7 +547,7 @@ function benchmark_gather_all()
       if (name == 'program') {
         field_data =  '_(' + type + ')_';
       } else if (type == 'Geomean') {
-        if (table.name.indexOf('operations') == 0) {
+        if (table.name.indexOf('mips') == 0 || table.name.indexOf('operations') == 0) {
           field_data = Math.round(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length));
         } else {
           field_data = roundWithTrailingZeros(Math.pow(parseFloat(total_geo[name]), 1.0/benchmarks.length), 2);

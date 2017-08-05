@@ -15,8 +15,9 @@ The following sources are used:
 The following results have been plotted:
 
 - [Runtimes](#runtimes)
-- [File Sizes](#file-sizes)
-- [Dynamic Micro-ops](#dynamic-micro-ops)
+- [Instructions Per Second](#instructions-per-second)
+- [Retired Micro-ops](#retired-micro-ops)
+- [Executable File Sizes](#executable-file-sizes)
 - [Dynamic Register Usage](#dynamic-register-usage)
 
 **Compiler details**
@@ -40,7 +41,7 @@ aarch64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 - Benchmarks are run 20 times and the best result is taken
 
 
-### [Runtimes](#runtimes)
+### Runtimes
 
 Runtime results comparing qemu, rv8 and native x86:
 
@@ -73,24 +74,34 @@ TABLE runtime-Os-32
 TABLE ratio-Os-32
 
 
-### [File Sizes](#file-sizes)
+### Instructions Per Second
 
-GCC filesize results comparing aarch64, riscv32, riscv64, x86-32 and x86-64:
+Instructions per second in millions comparing rv8 and native x86:
 
-![benchmark filesizes -O3]({{ site.url }}/plots/filesize-O3.svg)
-_Figure 5: Compiled file sizes -O3_
+![operation counts -O3 64-bit]({{ site.url }}/plots/mips-O3-64.svg)
+_Figure 7: Millions of Instructions Per Second -O3 64-bit_
 
-TABLE filesize-O3
+TABLE mips-O3-64
 
-![benchmark filesizes -Os]({{ site.url }}/plots/filesize-Os.svg)
-_Figure 6: Compiled file sizes -Os_
+![operation counts -Os 64-bit]({{ site.url }}/plots/mips-Os-64.svg)
+_Figure 8: Millions of Instructions Per Second -Os 64-bit_
 
-TABLE filesize-Os
+TABLE mips-Os-64
+
+![operation counts -O3 32-bit]({{ site.url }}/plots/mips-O3-32.svg)
+_Figure 9: Millions of Instructions Per Second -O3 32-bit_
+
+TABLE mips-O3-32
+
+![operation counts -Os 32-bit]({{ site.url }}/plots/mips-Os-32.svg)
+_Figure 10: Millions of Instructions Per Second -Os 32-bit_
+
+TABLE mips-Os-32
 
 
-### [Dynamic Micro-ops](#dynamic-micro-ops)
+### Retired Micro-ops
 
-Dynamic micro-op/instruction counts comparing RISC-V and x86:
+Total retired micro-op/instruction counts comparing RISC-V and x86:
 
 ![operation counts -O3 64-bit]({{ site.url }}/plots/operations-O3-64.svg)
 _Figure 7: Dynamic operation counts -O3 64-bit_
@@ -113,7 +124,22 @@ _Figure 10: Dynamic operation counts -Os 32-bit_
 TABLE operations-Os-32
 
 
-### [Dynamic Register Usage](#dynamic-register-usage)
+### Executable File Sizes
+
+GCC executable file sizes comparing aarch64, riscv32, riscv64, x86-32 and x86-64:
+
+![benchmark filesizes -O3]({{ site.url }}/plots/filesize-O3.svg)
+_Figure 5: Compiled file sizes -O3_
+
+TABLE filesize-O3
+
+![benchmark filesizes -Os]({{ site.url }}/plots/filesize-Os.svg)
+_Figure 6: Compiled file sizes -Os_
+
+TABLE filesize-Os
+
+
+### Dynamic Register Usage
 
 Dynamic register usage results comparing riscv64 -O3 vs -Os
 
