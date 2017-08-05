@@ -35,6 +35,10 @@ aarch64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 - x86-64 μops measured with
   - `perf stat -e cycles,instructions,r1b1,r10e,r2c2,r1c2 <cmd>`
 
+**Measurement details**
+
+- Benchmarks are run 20 times and the best result is taken
+
 
 ### [Runtimes](#runtimes)
 
