@@ -9,6 +9,7 @@ for i in aes dhrystone miniz norx primes qsort sha512; do
 done
 
 gnuplot plots/filesize.gnuplot
+gnuplot plots/fusion.gnuplot
 gnuplot plots/mips.gnuplot
 gnuplot plots/operations.gnuplot
 gnuplot plots/registers.gnuplot
