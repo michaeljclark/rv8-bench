@@ -14,6 +14,8 @@ var targets    = [ 'rv-hist-riscv32',
                    'rv-sim-riscv64',
                    'rv-jit-riscv32',
                    'rv-jit-riscv64',
+                   'rv-jit-df-riscv32',
+                   'rv-jit-df-riscv64',
                    'qemu-riscv32',
                    'qemu-riscv64',
                    'qemu-aarch64',
@@ -235,6 +237,17 @@ function benchmark_jit(benchmark, target, opt, runs)
   }
 }
 
+function benchmark_jit_df(benchmark, target, opt, runs)
+{
+  var system = 'rv-jit-df-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'rv-jit',
+      ['-N', 'bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(benchmark, system, opt, data);
+    benchmark_print_row(fmt_time, data);
+  }
+}
+
 function benchmark_qemu(benchmark, target, opt, runs)
 {
   var system = 'qemu-' + target;
@@ -267,6 +280,8 @@ function benchmark_run(benchmark, target, opt, runs)
     case 'rv-sim-riscv64': benchmark_sim(benchmark, 'riscv64', opt, runs); break;
     case 'rv-jit-riscv32': benchmark_jit(benchmark, 'riscv32', opt, runs); break;
     case 'rv-jit-riscv64': benchmark_jit(benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-df-riscv32': benchmark_jit_df(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-df-riscv64': benchmark_jit_df(benchmark, 'riscv64', opt, runs); break;
     case 'qemu-riscv32': benchmark_qemu(benchmark, 'riscv32', opt, runs); break;
     case 'qemu-riscv64': benchmark_qemu(benchmark, 'riscv64', opt, runs); break;
     case 'qemu-aarch64': benchmark_qemu(benchmark, 'aarch64', opt, runs); break;
@@ -538,6 +553,7 @@ function benchmark_gather_all()
     var type = 'Sum';
     if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
     else if (table.name.indexOf('mips') == 0) { type = 'Geomean'; }
+    else if (table.name.indexOf('fusion') == 0) { type = 'Geomean'; }
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
       var fmt = column.fmt;
