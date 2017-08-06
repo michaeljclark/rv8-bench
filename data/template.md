@@ -99,7 +99,7 @@ TABLE mips-Os-32
 
 ### Macro-op Fusion
 
-Runtimes and ratios for rv8 macro-op fusion (disabled and enabled):
+Runtimes and ratios for rv8 macro-op fusion (fusion=on,off):
 
 ![fusion runtimes and ratios 64-bit]({{ site.url }}/plots/fusion-64.svg)
 _Figure 9: Fusion disabled and enabled runtimes -Os 64-bit_

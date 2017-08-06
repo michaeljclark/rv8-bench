@@ -52,25 +52,25 @@ ratio-Os-32    "Performance Ratio 32-bit -Os (smaller is better)"
 
 fusion-O3-64    "Macro-op fusion performance 64-bit -O3"
 	program           "%s" program
-	rv8-no-fuse-O3    "%s" rv-jit-df-riscv64-O3-runtime
+	rv8-fuse-off-O3   "%s" rv-jit-df-riscv64-O3-runtime
 	rv8-fuse-on-O3    "%s" rv-jit-riscv64-O3-runtime
 	rv8-fuse-ratio-O3 "%s" rv-jit-riscv64-O3-runtime/rv-jit-df-riscv64-O3-runtime
 
 fusion-Os-64    "Macro-op fusion performance 64-bit -Os"
 	program           "%s" program
-	rv8-no-fuse-Os    "%s" rv-jit-df-riscv64-Os-runtime
+	rv8-fuse-off-Os   "%s" rv-jit-df-riscv64-Os-runtime
 	rv8-fuse-on-Os    "%s" rv-jit-riscv64-Os-runtime
 	rv8-fuse-ratio-Os "%s" rv-jit-riscv64-Os-runtime/rv-jit-df-riscv64-Os-runtime
 
 fusion-O3-32    "Macro-op fusion performance 32-bit -O3"
 	program           "%s" program
-	rv8-no-fuse-O3    "%s" rv-jit-df-riscv32-O3-runtime
+	rv8-fuse-off-O3   "%s" rv-jit-df-riscv32-O3-runtime
 	rv8-fuse-on-O3    "%s" rv-jit-riscv32-O3-runtime
 	rv8-fuse-ratio-O3 "%s" rv-jit-riscv32-O3-runtime/rv-jit-df-riscv32-O3-runtime
 
 fusion-Os-32    "Macro-op fusion performance 32-bit -Os"
 	program           "%s" program
-	rv8-no-fuse-Os    "%s" rv-jit-df-riscv32-Os-runtime
+	rv8-fuse-off-Os   "%s" rv-jit-df-riscv32-Os-runtime
 	rv8-fuse-on-Os    "%s" rv-jit-riscv32-Os-runtime
 	rv8-fuse-ratio-Os "%s" rv-jit-riscv32-Os-runtime/rv-jit-df-riscv32-Os-runtime
 
