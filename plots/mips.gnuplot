@@ -18,13 +18,13 @@ set output "svg/mips-O3-64.svg"
 set title "rv8-bench (MIPS -O3 64-bit)"
 plot 'data/benchmarks_noheader.dat' using \
 	($19/$20):xtic(1) title 'native-x86-64-O3-mips', \
-	'' u ($50/$44) title 'rv-jit-riscv64-O3-mips'
+	'' u ($55/$49) title 'rv8-riscv64-O3-mips'
 
 set output "svg/mips-Os-64.svg"
 set title "rv8-bench (MIPS -Os 64-bit)"
 plot 'data/benchmarks_noheader.dat' using \
 	($26/$27):xtic(1) title 'native-x86-64-Os-mips', \
-	'' u ($52/$45) title 'rv-jit-riscv64-Os-mips'
+	'' u ($57/$50) title 'rv8-riscv64-Os-mips'
 
 set yrange [0:15e9]
 
@@ -32,10 +32,10 @@ set output "svg/mips-O3-32.svg"
 set title "rv8-bench (MIPS -O3 32-bit)"
 plot 'data/benchmarks_noheader.dat' using \
 	($5/$6):xtic(1) title 'native-x86-32-O3-mips', \
-	'' u ($46/$42) title 'rv-jit-riscv32-O3-mips'
+	'' u ($51/$47) title 'rv8-riscv32-O3-mips'
 
 set output "svg/mips-Os-32.svg"
 set title "rv8-bench (MIPS -Os 32-bit)"
 plot 'data/benchmarks_noheader.dat' using \
 	($12/$13):xtic(1) title 'native-x86-32-Os-mips', \
-	'' u ($48/$43) title 'rv-jit-riscv32-Os-mips'
+	'' u ($53/$48) title 'rv8-riscv32-Os-mips'

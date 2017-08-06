@@ -8,6 +8,8 @@ for i in aes dhrystone miniz norx primes qsort sha512; do
 	rm -f stats/rv-hist-riscv64-$i.tmp
 done
 
+grep -v benchmark data/benchmarks.dat >data/benchmarks_noheader.dat
+
 gnuplot plots/filesize.gnuplot
 gnuplot plots/fusion.gnuplot
 gnuplot plots/mips.gnuplot
