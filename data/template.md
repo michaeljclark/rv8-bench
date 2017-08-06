@@ -15,8 +15,8 @@ The following sources are used:
 The following results have been plotted:
 
 - [Runtimes](#runtimes)
-- [Macro-op Fusion](#macro-op-fusion)
 - [Instructions Per Second](#instructions-per-second)
+- [Macro-op Fusion](#macro-op-fusion)
 - [Retired Micro-ops](#retired-micro-ops)
 - [Executable File Sizes](#executable-file-sizes)
 - [Dynamic Register Usage](#dynamic-register-usage)
@@ -72,21 +72,6 @@ TABLE runtime-Os-32
 TABLE ratio-Os-32
 
 
-### Macro-op Fusion
-
-Runtimes and ratios for rv8 with macro-op fusion disabled and enabled:
-
-![fusion runtimes and ratios 64-bit]({{ site.url }}/plots/fusion-64.svg)
-_Figure 5: Fusion disabled and enabled runtimes -Os 64-bit_
-
-TABLE fusion-64
-
-![fusion runtimes and ratios 32-bit]({{ site.url }}/plots/fusion-32.svg)
-_Figure 6: Fusion disabled and enabled runtimes -Os 32-bit_
-
-TABLE fusion-32
-
-
 ### Instructions Per Second
 
 Instructions per second in millions comparing rv8 and native x86:
@@ -110,6 +95,21 @@ TABLE mips-O3-32
 _Figure 10: Millions of Instructions Per Second -Os 32-bit_
 
 TABLE mips-Os-32
+
+
+### Macro-op Fusion
+
+Runtimes and ratios for rv8 with macro-op fusion disabled and enabled:
+
+![fusion runtimes and ratios 64-bit]({{ site.url }}/plots/fusion-64.svg)
+_Figure 5: Fusion disabled and enabled runtimes -Os 64-bit_
+
+TABLE fusion-64
+
+![fusion runtimes and ratios 32-bit]({{ site.url }}/plots/fusion-32.svg)
+_Figure 6: Fusion disabled and enabled runtimes -Os 32-bit_
+
+TABLE fusion-32
 
 
 ### Retired Micro-ops
