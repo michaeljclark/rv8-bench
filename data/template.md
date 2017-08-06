@@ -77,39 +77,43 @@ TABLE ratio-Os-32
 Instructions per second in millions comparing rv8 and native x86:
 
 ![operation counts -O3 64-bit]({{ site.url }}/plots/mips-O3-64.svg)
-_Figure 7: Millions of Instructions Per Second -O3 64-bit_
+_Figure 5: Millions of Instructions Per Second -O3 64-bit_
 
 TABLE mips-O3-64
 
 ![operation counts -Os 64-bit]({{ site.url }}/plots/mips-Os-64.svg)
-_Figure 8: Millions of Instructions Per Second -Os 64-bit_
+_Figure 6: Millions of Instructions Per Second -Os 64-bit_
 
 TABLE mips-Os-64
 
 ![operation counts -O3 32-bit]({{ site.url }}/plots/mips-O3-32.svg)
-_Figure 9: Millions of Instructions Per Second -O3 32-bit_
+_Figure 7: Millions of Instructions Per Second -O3 32-bit_
 
 TABLE mips-O3-32
 
 ![operation counts -Os 32-bit]({{ site.url }}/plots/mips-Os-32.svg)
-_Figure 10: Millions of Instructions Per Second -Os 32-bit_
+_Figure 8: Millions of Instructions Per Second -Os 32-bit_
 
 TABLE mips-Os-32
 
 
 ### Macro-op Fusion
 
-Runtimes and ratios for rv8 with macro-op fusion disabled and enabled:
+Runtimes and ratios for rv8 macro-op fusion (disabled and enabled):
 
 ![fusion runtimes and ratios 64-bit]({{ site.url }}/plots/fusion-64.svg)
-_Figure 5: Fusion disabled and enabled runtimes -Os 64-bit_
+_Figure 9: Fusion disabled and enabled runtimes -Os 64-bit_
 
-TABLE fusion-64
+TABLE fusion-O3-64
+
+TABLE fusion-Os-64
 
 ![fusion runtimes and ratios 32-bit]({{ site.url }}/plots/fusion-32.svg)
-_Figure 6: Fusion disabled and enabled runtimes -Os 32-bit_
+_Figure 10: Fusion disabled and enabled runtimes -Os 32-bit_
 
-TABLE fusion-32
+TABLE fusion-O3-32
+
+TABLE fusion-Os-32
 
 
 ### Retired Micro-ops
