@@ -120,13 +120,13 @@ TABLE fusion-Os-32
 
 The following table describes the measured x86 performance counters:
 
-Counter       | x86 event mask              | description
+counter       | x86 event mask              | description
 :------------ | :-------------------------- | :-----------------------------------
-instret       | `INST_RETIRED`              | total number of instructions retired
-uops-executed | `UOPS_EXECUTED.THREAD`      | uops executed _(unfused domain)_
-uops-issued   | `UOPS_ISSUED.ANY`           | uops issued _(fused domain)_
-uops-slots    | `UOPS_RETIRED.RETIRE_SLOTS` | uop retirement slots used _(fused domain)_
-uops-retired  | `UOPS_RETIRED.ANY`          | uops retired _(unfused domain)_
+instret       | `INST_RETIRED`              | instructions retired
+uops-executed | `UOPS_EXECUTED.THREAD`      | uops executed
+uops-issued   | `UOPS_ISSUED.ANY`           | uops issued
+uops-slots    | `UOPS_RETIRED.RETIRE_SLOTS` | uop retirement slots used
+uops-retired  | `UOPS_RETIRED.ANY`          | uops retired
 
 Total retired micro-op/instruction counts comparing RISC-V and x86:
 
