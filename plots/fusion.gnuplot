@@ -18,17 +18,17 @@ set yrange [0:2.5]
 set output "svg/fusion-64.svg"
 set title "rv8-bench (Runtime fusion=on,off 64-bit)"
 plot 'data/benchmarks.dat' using \
-	'rv-jit-df-riscv64-O3-runtime':xtic(1) ti 'rv8-fuse-off-riscv64-O3', \
-	'' u 'rv-jit-df-riscv64-Os-runtime' ti 'rv8-fuse-off-riscv64-Os', \
-	'' u 'rv-jit-riscv64-O3-runtime' ti 'rv8-fuse-on-riscv64-O3', \
-	'' u 'rv-jit-riscv64-Os-runtime' ti 'rv8-fuse-on-riscv64-Os'
+	'rv-jit-df-riscv64-O3-runtime':xtic(1) ti 'rv8-fuse-off-riscv64-O3-runtime', \
+	'' u 'rv-jit-df-riscv64-Os-runtime' ti 'rv8-fuse-off-riscv64-Os-runtime', \
+	'' u 'rv-jit-riscv64-O3-runtime' ti 'rv8-fuse-on-riscv64-O3-runtime', \
+	'' u 'rv-jit-riscv64-Os-runtime' ti 'rv8-fuse-on-riscv64-Os-runtime'
 
 set yrange [0:4]
 
 set output "svg/fusion-32.svg"
 set title "rv8-bench (Runtime fusion=on,off 32-bit)"
 plot 'data/benchmarks.dat' using \
-	'rv-jit-df-riscv32-O3-runtime':xtic(1) ti 'rv8-fuse-off-riscv32-O3', \
-	'' u 'rv-jit-df-riscv32-Os-runtime' ti 'rv8-fuse-off-riscv32-Os', \
-	'' u 'rv-jit-riscv32-O3-runtime' ti 'rv8-fuse-on-riscv32-O3', \
-	'' u 'rv-jit-riscv32-Os-runtime' ti 'rv8-fuse-on-riscv32-Os'
+	'rv-jit-df-riscv32-O3-runtime':xtic(1) ti 'rv8-fuse-off-riscv32-O3-runtime', \
+	'' u 'rv-jit-df-riscv32-Os-runtime' ti 'rv8-fuse-off-riscv32-Os-runtime', \
+	'' u 'rv-jit-riscv32-O3-runtime' ti 'rv8-fuse-on-riscv32-O3-runtime', \
+	'' u 'rv-jit-riscv32-Os-runtime' ti 'rv8-fuse-on-riscv32-Os-runtime'
