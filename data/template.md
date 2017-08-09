@@ -33,10 +33,13 @@ aarch64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 
 **Measurement details**
 
-- Intel® 6th-gen Core™ i7-5557U Broadwell (3.10GHz, 3.40GHz Turbo, 4MB cache)
+- rv8 benchmarks use `rv-jit`
+- Dynamic instruction counts are measured using `rv-sim -E`
+- QEMU benchmarks use `qemu-riscv32`, `qemu-riscv64` and `qemu-aarch64`
+- Benchmarks are run 20 times and the best result is taken
 - x86-64 μops measured with
   - `perf stat -e cycles,instructions,r1b1,r10e,r2c2,r1c2 <cmd>`
-- Benchmarks are run 20 times and the best result is taken
+- Intel® 6th-gen Core™ i7-5557U Broadwell (3.10GHz, 3.40GHz Turbo, 4MB cache)
 
 
 ### Runtimes
