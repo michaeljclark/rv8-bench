@@ -169,7 +169,7 @@ TABLE operations-Os-32
 
 ### Executable File Sizes
 
-GCC executable file sizes comparing aarch64, riscv32, riscv64, x86-32 and x86-64:
+GCC stripped executable sizes comparing aarch64, riscv32, riscv64, x86-32 and x86-64:
 
 ![benchmark filesizes -O3]({{ site.url }}/plots/filesize-O3.svg)
 _Figure 15: Compiled file sizes -O3_
