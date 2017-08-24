@@ -3,16 +3,20 @@
 ## rv8 benchmark results
 
 This document contains [rv8-bench](https://github.com/rv8-io/rv8-bench/)
-benchmark results for GCC 7.1.0 and musl libc on an Intel Core i7 Broadwell CPU.
+benchmark results for GCC 7.1.0 and musl libc.
 
-The following sources are used:
+#### Benchmark source
+
+The following sources have been used to run the benchmarks:
 
 - rv8 - [https://github.com/rv8-io/rv8/](https://github.com/rv8-io/rv8/)
 - rv8-bench - [https://github.com/rv8-io/rv8-bench/](https://github.com/rv8-io/rv8-bench/)
 - qemu-riscv - [https://github.com/riscv/riscv-qemu/](https://github.com/riscv/riscv-qemu/)
 - musl-riscv-toolchain - [https://github.com/rv8-io/musl-riscv-toolchain/](https://github.com/rv8-io/musl-riscv-toolchain/)
 
-The following results have been plotted:
+#### Benchmark metrics
+
+The following benchmark metrics have been plotted and tabulated:
 
 - [Runtimes](#runtimes)
 - [Instructions Per Second](#instructions-per-second)
@@ -21,7 +25,10 @@ The following results have been plotted:
 - [Executable File Sizes](#executable-file-sizes)
 - [Dynamic Register Usage](#dynamic-register-usage)
 
-**Benchmark details**
+#### Benchmark details
+
+The [rv8-bench](https://github.com/rv8-io/rv8-bench/)
+benchmark suite contains the following test programs:
 
 Benchmark | Type        | Description
 :--       | :--         | :--
@@ -34,7 +41,10 @@ primes    | numeric     | calculate largest prime number below 33333333
 qsort     | sorting     | sort array containing 50 million items
 sha512    | digest      | calculate SHA-512 hash of 64MiB of data
 
-**Compiler details**
+#### Compiler details
+
+The following compiler architectures, versions, compile options
+and runtime libraries are used to run the benchmarks:
 
 Architecture | Compiler  | C Library | Compile options
 :--          | :--       | :--       | :--
@@ -44,7 +54,7 @@ riscv32      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 riscv64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 aarch64      | GCC 7.1.0 | musl libc | `'-O3 -fPIE'`, `'-Os -fPIE'`
 
-**Measurement details**
+#### Measurement details
 
 - rv8 benchmarks use `rv-jit`
 - Dynamic instruction counts are measured using `rv-sim -E`
