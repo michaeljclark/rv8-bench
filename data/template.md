@@ -3,7 +3,12 @@
 ## rv8 benchmark results
 
 This document contains [rv8-bench](https://github.com/rv8-io/rv8-bench/)
-benchmark results for GCC 7.1.0 and musl libc.
+benchmark results for GCC 7.1.0 and musl libc. The results include
+runtimes and instructions per second comparisons for the QEMU and rv8
+JIT engines and native x86. The benchmark programs are compiled and
+tested for aarch64, riscv64, riscv32, x86-64 and x86-32. The results
+also include runtime neutral metrics such as retired RISC-V instructions,
+x86 micro-ops, executable file sizes and dynamic register usage.
 
 #### Benchmark source
 
