@@ -13,7 +13,7 @@ set ylabel "Runtime (secs)" offset 2,0,0
 
 set grid xtics ytics
 
-set yrange [0:2.5]
+set yrange [0:3.0]
 
 set output "svg/fusion-64.svg"
 set title "rv8-bench (Runtime fusion=on,off 64-bit)"
