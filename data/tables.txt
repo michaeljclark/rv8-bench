@@ -82,7 +82,7 @@ filesize-O3    "Compiled File Size (bytes) -O3"
 	x86-32            "%d" x86-32-O3-filesize
 	x86-64            "%d" x86-64-O3-filesize
 
-filesize-Os    "Compiled File Size (bytes) -O3"
+filesize-Os    "Compiled File Size (bytes) -Os"
 	program           "%s" program
 	aarch64           "%d" aarch64-Os-filesize
 	riscv32           "%d" riscv32-Os-filesize
