@@ -21,6 +21,19 @@ The following results have been plotted:
 - [Executable File Sizes](#executable-file-sizes)
 - [Dynamic Register Usage](#dynamic-register-usage)
 
+**Benchmark details**
+
+Benchmark | Type        | Description
+:--       | :--         | :--
+aes       | crypto      | encrypt, decrypt and compare 30MiB of data
+bigint    | numeric     | compute 23 ^ 111121 and count base 10 digits
+dhrystone | synthetic   | synthetic integer workload
+miniz     | compression | compress, decompress and compare 8MiB of data
+norx      | crypto      | encrypt, decrypt and compare 30MiB of data
+primes    | numeric     | calculate largest prime number below 33333333
+qsort     | sorting     | sort array containing 50 million items
+sha512    | digest      | calculate SHA-512 hash of 64MiB of data
+
 **Compiler details**
 
 Architecture | Compiler  | C Library | Compile options
