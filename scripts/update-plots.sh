@@ -1,11 +1,23 @@
 #!/bin/bash
-for i in aes bigint dhrystone miniz norx primes qsort sha512; do
+for i in aes bigint dhrystone miniz norx primes qsort sha512;
+do
+	# rename zero register to x0
 	sed -i '' s#zero#x0# stats/rv-hist-riscv64-$i-O3.dir/hist-reg.csv
 	sed -i '' s#zero#x0# stats/rv-hist-riscv64-$i-Os.dir/hist-reg.csv
-	join <(sort -k1,1 stats/rv-hist-riscv64-$i-O3.dir/hist-reg.csv) <(sort -k1,1 stats/rv-hist-riscv64-$i-Os.dir/hist-reg.csv) >stats/rv-hist-riscv64-$i.tmp
-	echo "register O3 Os" > stats/rv-hist-riscv64-$i.csv
-	grep -v register <stats/rv-hist-riscv64-$i.tmp >>stats/rv-hist-riscv64-$i.csv
-	rm -f stats/rv-hist-riscv64-$i.tmp
+
+	# combine O3 and Os register histograms
+	join <(sort -k1,1 stats/rv-hist-riscv64-$i-O3.dir/hist-reg.csv) <(sort -k1,1 stats/rv-hist-riscv64-$i-Os.dir/hist-reg.csv) >stats/rv-hist-reg-riscv64-$i.tmp
+	echo "register O3 Os" > stats/rv-hist-reg-riscv64-$i.csv
+	grep -v register <stats/rv-hist-reg-riscv64-$i.tmp >>stats/rv-hist-reg-riscv64-$i.csv
+
+	# combine O3 and Os instruction histograms
+	join <(sort -k1,1 stats/rv-hist-riscv64-$i-O3.dir/hist-inst.csv) <(sort -k1,1 stats/rv-hist-riscv64-$i-Os.dir/hist-inst.csv) >stats/rv-hist-inst-riscv64-$i.tmp
+	echo "opcode O3 Os" > stats/rv-hist-inst-riscv64-$i.csv
+	grep -v opcode <stats/rv-hist-inst-riscv64-$i.tmp >>stats/rv-hist-inst-riscv64-$i.csv
+
+	# remove temporary files
+	rm -f stats/rv-hist-reg-riscv64-$i.tmp
+	rm -f stats/rv-hist-inst-riscv64-$i.tmp
 done
 
 grep -v benchmark data/benchmarks.dat >data/benchmarks_noheader.dat
@@ -15,4 +27,5 @@ gnuplot plots/fusion.gnuplot
 gnuplot plots/mips.gnuplot
 gnuplot plots/operations.gnuplot
 gnuplot plots/registers.gnuplot
+gnuplot plots/instructions.gnuplot
 gnuplot plots/runtime.gnuplot
