@@ -90,7 +90,7 @@ TABLE ratio-Os-32
 
 ### Instructions Per Second
 
-Instructions per second in millions comparing rv8 and native x86:
+Instructions per second in millions comparing qemu, rv8 and native x86:
 
 ![operation counts -O3 64-bit]({{ site.url }}/plots/mips-O3-64.svg)
 _Figure 5: Millions of Instructions Per Second -O3 64-bit_

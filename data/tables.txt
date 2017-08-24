@@ -90,25 +90,29 @@ filesize-Os    "Compiled File Size (bytes) -Os"
 	x86-32            "%d" x86-32-Os-filesize
 	x86-64            "%d" x86-64-Os-filesize
 
-mips-O3-64            "Instructions per second (MIPS) native vs rv8 64-bit -O3"
+mips-O3-64            "Instructions per second (MIPS) qemu, rv8 and native 64-bit -O3"
 	program           "%s" program
-	native-x86-mips   "%d" native-x86-64-O3-instret/native-x86-64-O3-runtime
+	qemu-riscv64-mips "%d" rv-sim-riscv64-O3-instret/qemu-riscv64-O3-runtime
 	rv8-riscv64-mips  "%d" rv-sim-riscv64-O3-instret/rv-jit-riscv64-O3-runtime
+	native-x86-mips   "%d" native-x86-64-O3-instret/native-x86-64-O3-runtime
 
-mips-Os-64            "Instructions per second (MIPS) native vs rv8 64-bit -Os"
+mips-Os-64            "Instructions per second (MIPS) qemu, rv8 and native 64-bit -Os"
 	program           "%s" program
-	native-x86-mips   "%d" native-x86-64-Os-instret/native-x86-64-Os-runtime
+	qemu-riscv64-mips "%d" rv-sim-riscv64-Os-instret/qemu-riscv64-Os-runtime
 	rv8-riscv64-mips  "%d" rv-sim-riscv64-Os-instret/rv-jit-riscv64-Os-runtime
+	native-x86-mips   "%d" native-x86-64-Os-instret/native-x86-64-Os-runtime
 
-mips-O3-32            "Instructions per second (MIPS) native vs rv8 32-bit -O3"
+mips-O3-32            "Instructions per second (MIPS) qemu, rv8 and native 32-bit -O3"
 	program           "%s" program
-	native-x86-mips   "%d" native-x86-32-O3-instret/native-x86-32-O3-runtime
+	qemu-riscv32-mips "%d" rv-sim-riscv32-O3-instret/qemu-riscv32-O3-runtime
 	rv8-riscv32-mips  "%d" rv-sim-riscv32-O3-instret/rv-jit-riscv32-O3-runtime
+	native-x86-mips   "%d" native-x86-32-O3-instret/native-x86-32-O3-runtime
 
-mips-Os-32            "Instructions per second (MIPS) native vs rv8 32-bit -Os"
+mips-Os-32            "Instructions per second (MIPS) qemu, rv8 and native 32-bit -Os"
 	program           "%s" program
-	native-x86-mips   "%d" native-x86-32-Os-instret/native-x86-32-Os-runtime
+	qemu-riscv32-mips "%d" rv-sim-riscv32-Os-instret/qemu-riscv32-Os-runtime
 	rv8-riscv32-mips  "%d" rv-sim-riscv32-Os-instret/rv-jit-riscv32-Os-runtime
+	native-x86-mips   "%d" native-x86-32-Os-instret/native-x86-32-Os-runtime
 
 operations-O3-64      "Retired Operations (Mops) x86-64 vs riscv64 -O3"
 	program           "%s" program
