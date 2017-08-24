@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in aes dhrystone miniz norx primes qsort sha512; do
+for i in aes bigint dhrystone miniz norx primes qsort sha512; do
 	sed -i '' s#zero#x0# stats/rv-hist-riscv64-$i-O3.dir/hist-reg.csv
 	sed -i '' s#zero#x0# stats/rv-hist-riscv64-$i-Os.dir/hist-reg.csv
 	join <(sort -k1,1 stats/rv-hist-riscv64-$i-O3.dir/hist-reg.csv) <(sort -k1,1 stats/rv-hist-riscv64-$i-Os.dir/hist-reg.csv) >stats/rv-hist-riscv64-$i.tmp

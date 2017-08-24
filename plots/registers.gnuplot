@@ -15,7 +15,7 @@ set ylabel "Frequency (count)" offset 2,0,0
 
 set grid xtics ytics
 
-filenames = "aes dhrystone miniz norx primes qsort sha512"
+filenames = "aes bigint dhrystone miniz norx primes qsort sha512"
 
 do for [file in filenames] {
   infile1 = sprintf('stats/rv-hist-riscv64-%s-O3.dir/hist-reg.csv',file)

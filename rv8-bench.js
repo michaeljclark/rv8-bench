@@ -6,7 +6,7 @@ var fs = require("fs");
 var util = require("util");
 var child_process = require('child_process');
 
-var benchmarks = [ 'aes', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
+var benchmarks = [ 'aes', 'bigint', 'dhrystone', 'miniz', 'norx', 'primes', 'qsort', 'sha512' ];
 
 var targets    = [ 'rv-hist-riscv32',
                    'rv-hist-riscv64',

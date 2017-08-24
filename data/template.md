@@ -179,38 +179,44 @@ _Figure 17: Dynamic register usage - aes -O3 vs -Os (sorted by frequency)_
 ![aes register usage -O3 vs -Os]({{ site.url }}/plots/registers-aes-rv64-2.svg)
 _Figure 18: Dynamic register usage - aes -O3 vs -Os (sorted by alphabetically)_
 
+![bigint register usage -O3 vs -Os]({{ site.url }}/plots/registers-bigint-rv64-1.svg)
+_Figure 19: Dynamic register usage - bigint -O3 vs -Os (sorted by frequency)_
+
+![bigint register usage -O3 vs -Os]({{ site.url }}/plots/registers-bigint-rv64-2.svg)
+_Figure 20: Dynamic register usage - bigint -O3 vs -Os (sorted by alphabetically)_
+
 ![dhrystone register usage -O3 vs -Os]({{ site.url }}/plots/registers-dhrystone-rv64-1.svg)
-_Figure 19: Dynamic register usage - dhrystone -O3 vs -Os (sorted by frequency)_
+_Figure 21: Dynamic register usage - dhrystone -O3 vs -Os (sorted by frequency)_
 
 ![dhrystone register usage -O3 vs -Os]({{ site.url }}/plots/registers-dhrystone-rv64-2.svg)
-_Figure 20: Dynamic register usage - dhrystone -O3 vs -Os (sorted by alphabetically)_
+_Figure 22: Dynamic register usage - dhrystone -O3 vs -Os (sorted by alphabetically)_
 
 ![miniz register usage -O3 vs -Os]({{ site.url }}/plots/registers-miniz-rv64-1.svg)
-_Figure 21: Dynamic register usage - miniz -O3 vs -Os (sorted by frequency)_
+_Figure 23: Dynamic register usage - miniz -O3 vs -Os (sorted by frequency)_
 
 ![miniz register usage -O3 vs -Os]({{ site.url }}/plots/registers-miniz-rv64-2.svg)
-_Figure 22: Dynamic register usage - miniz -O3 vs -Os (sorted by alphabetically)_
+_Figure 24: Dynamic register usage - miniz -O3 vs -Os (sorted by alphabetically)_
 
 ![norx register usage -O3 vs -Os]({{ site.url }}/plots/registers-norx-rv64-1.svg)
-_Figure 23: Dynamic register usage - norx -O3 vs -Os (sorted by frequency)_
+_Figure 25: Dynamic register usage - norx -O3 vs -Os (sorted by frequency)_
 
 ![norx register usage -O3 vs -Os]({{ site.url }}/plots/registers-norx-rv64-2.svg)
-_Figure 24: Dynamic register usage - norx -O3 vs -Os (sorted by alphabetically)_
+_Figure 26: Dynamic register usage - norx -O3 vs -Os (sorted by alphabetically)_
 
 ![primes register usage -O3 vs -Os]({{ site.url }}/plots/registers-primes-rv64-1.svg)
-_Figure 25: Dynamic register usage - primes -O3 vs -Os (sorted by frequency)_
+_Figure 27: Dynamic register usage - primes -O3 vs -Os (sorted by frequency)_
 
 ![primes register usage -O3 vs -Os]({{ site.url }}/plots/registers-primes-rv64-2.svg)
-_Figure 26: Dynamic register usage - primes -O3 vs -Os (sorted by alphabetically)_
+_Figure 28: Dynamic register usage - primes -O3 vs -Os (sorted by alphabetically)_
 
 ![qsort register usage -O3 vs -Os]({{ site.url }}/plots/registers-qsort-rv64-1.svg)
-_Figure 27: Dynamic register usage - qsort -O3 vs -Os (sorted by frequency)_
+_Figure 29: Dynamic register usage - qsort -O3 vs -Os (sorted by frequency)_
 
 ![qsort register usage -O3 vs -Os]({{ site.url }}/plots/registers-qsort-rv64-2.svg)
-_Figure 28: Dynamic register usage - qsort -O3 vs -Os (sorted by alphabetically)_
+_Figure 30: Dynamic register usage - qsort -O3 vs -Os (sorted by alphabetically)_
 
 ![sha512 register usage -O3 vs -Os]({{ site.url }}/plots/registers-sha512-rv64-1.svg)
-_Figure 29: Dynamic register usage - sha512 -O3 vs -Os (sorted by frequency)_
+_Figure 31: Dynamic register usage - sha512 -O3 vs -Os (sorted by frequency)_
 
 ![sha512 register usage -O3 vs -Os]({{ site.url }}/plots/registers-sha512-rv64-2.svg)
-_Figure 30: Dynamic register usage - sha512 -O3 vs -Os (sorted by alphabetically)_
+_Figure 32: Dynamic register usage - sha512 -O3 vs -Os (sorted by alphabetically)_
