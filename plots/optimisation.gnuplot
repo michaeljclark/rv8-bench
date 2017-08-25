@@ -16,7 +16,7 @@ set grid xtics ytics
 set yrange [0:2.0]
 
 set output "svg/optimisation-x86.svg"
-set title "rv8-bench (Optimisation x86 -O3 vs -Os)"
+set title "rv8-bench (Optimisation native x86 -O3 vs -Os)"
 plot 'data/benchmarks.dat' using \
 	'native-x86-64-O3-runtime':xtic(1) ti 'native-x86-64-O3-runtime', \
 	'' u 'native-x86-64-Os-runtime' ti 'native-x86-64-Os-runtime', \
@@ -26,7 +26,7 @@ plot 'data/benchmarks.dat' using \
 set yrange [0:4]
 
 set output "svg/optimisation-riscv.svg"
-set title "rv8-bench (Optimisation riscv -O3 vs -Os)"
+set title "rv8-bench (Optimisation rv8 riscv -O3 vs -Os)"
 plot 'data/benchmarks.dat' using \
 	'rv-jit-riscv64-O3-runtime':xtic(1) ti 'rv8-riscv64-O3-runtime', \
 	'' u 'rv-jit-riscv64-Os-runtime' ti 'rv8-riscv64-Os-runtime', \
