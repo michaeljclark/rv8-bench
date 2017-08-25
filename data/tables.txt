@@ -50,6 +50,24 @@ ratio-Os-32    "Performance Ratio 32-bit -Os (smaller is better)"
 	rv8-riscv32       "%s" rv-jit-riscv32-Os-runtime/native-x86-32-Os-runtime
 	native-x86-32     "%s" 1.00
 
+optimisation-riscv   "Optimisation riscv32 and riscv64, -O3 vs -Os"
+	program           "%s" program
+	rv8-rv32-Os       "%s" rv-jit-riscv32-O3-runtime
+	rv8-rv32-Os       "%s" rv-jit-riscv32-Os-runtime
+	rv8-rv64-O3       "%s" rv-jit-riscv64-O3-runtime
+	rv8-rv64-O3       "%s" rv-jit-riscv64-Os-runtime
+	rv8-rv32-O3:Os    "%s" rv-jit-riscv32-O3-runtime/rv-jit-riscv32-Os-runtime
+	rv8-rv64-O3:Os    "%s" rv-jit-riscv64-O3-runtime/rv-jit-riscv64-Os-runtime
+
+optimisation-x86    "Optimisation x86-32 and x86-64, -O3 vs -Os"
+	program           "%s" program
+	x86-32-O3         "%s" native-x86-32-O3-runtime
+	x86-32-Os         "%s" native-x86-32-Os-runtime
+	x86-64-O3         "%s" native-x86-64-O3-runtime
+	x86-64-Os         "%s" native-x86-64-Os-runtime
+	x86-32-O3:Os      "%s" native-x86-32-O3-runtime/native-x86-32-Os-runtime
+	x86-64-O3:Os      "%s" native-x86-64-O3-runtime/native-x86-64-Os-runtime
+
 fusion-O3-64    "Macro-op fusion performance 64-bit -O3"
 	program           "%s" program
 	rv8-fuse-off-O3   "%s" rv-jit-df-riscv64-O3-runtime

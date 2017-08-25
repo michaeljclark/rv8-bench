@@ -554,6 +554,7 @@ function benchmark_gather_all()
     if (table.name.indexOf('ratio') == 0) { type = 'Geomean'; }
     else if (table.name.indexOf('mips') == 0) { type = 'Geomean'; }
     else if (table.name.indexOf('fusion') == 0) { type = 'Geomean'; }
+    else if (table.name.indexOf('optimisation') == 0) { type = 'Geomean'; }
     for (var j = 0; j < columns.length; j++) {
       var column = columns[j];
       var fmt = column.fmt;
