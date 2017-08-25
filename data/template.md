@@ -3,12 +3,12 @@
 ## rv8 benchmark results
 
 This document contains [rv8-bench](https://github.com/rv8-io/rv8-bench/)
-benchmark results for GCC 7.1.0 and musl libc. The results include
-runtimes and instructions per second comparisons for the QEMU and rv8
-JIT engines and native x86. The benchmark programs are compiled and
-tested for aarch64, riscv64, riscv32, x86-64 and x86-32. The results
-also include runtime neutral metrics such as retired RISC-V instructions,
-x86 micro-ops, executable file sizes and dynamic register usage.
+results for GCC 7.1.0 and musl libc. The results include runtimes and
+instructions per second comparisons for the QEMU and rv8 JIT engines and
+native x86. The benchmark programs are compiled and tested for aarch64,
+riscv64, riscv32, x86-64 and x86-32. The results also include runtime
+neutral metrics such as retired RISC-V instructions, x86 micro-ops,
+executable file sizes and dynamic register and instruction usage.
 
 #### Benchmark source
 
@@ -29,6 +29,7 @@ The following benchmark metrics have been plotted and tabulated:
 - [Retired Micro-ops](#retired-micro-ops)
 - [Executable File Sizes](#executable-file-sizes)
 - [Dynamic Register Usage](#dynamic-register-usage)
+- [Dynamic Instruction Usage](#dynamic-instruction-usage)
 
 #### Benchmark details
 
@@ -248,3 +249,56 @@ _Figure 31: Dynamic register usage - sha512 -O3 vs -Os (sorted by frequency)_
 
 ![sha512 register usage -O3 vs -Os]({{ site.url }}/plots/registers-sha512-rv64-2.svg)
 _Figure 32: Dynamic register usage - sha512 -O3 vs -Os (sorted by alphabetically)_
+
+
+### Dynamic Instruction Usage
+
+Dynamic instruction usage results comparing riscv64 -O3 vs -Os
+
+![aes instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-aes-rv64-1.svg)
+_Figure 33: Dynamic instruction usage - aes -O3 vs -Os (sorted by frequency)_
+
+![aes instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-aes-rv64-2.svg)
+_Figure 34: Dynamic instruction usage - aes -O3 vs -Os (sorted by alphabetically)_
+
+![bigint instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-bigint-rv64-1.svg)
+_Figure 35: Dynamic instruction usage - bigint -O3 vs -Os (sorted by frequency)_
+
+![bigint instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-bigint-rv64-2.svg)
+_Figure 36: Dynamic instruction usage - bigint -O3 vs -Os (sorted by alphabetically)_
+
+![dhrystone instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-dhrystone-rv64-1.svg)
+_Figure 37: Dynamic instruction usage - dhrystone -O3 vs -Os (sorted by frequency)_
+
+![dhrystone instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-dhrystone-rv64-2.svg)
+_Figure 38: Dynamic instruction usage - dhrystone -O3 vs -Os (sorted by alphabetically)_
+
+![miniz instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-miniz-rv64-1.svg)
+_Figure 39: Dynamic instruction usage - miniz -O3 vs -Os (sorted by frequency)_
+
+![miniz instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-miniz-rv64-2.svg)
+_Figure 40: Dynamic instruction usage - miniz -O3 vs -Os (sorted by alphabetically)_
+
+![norx instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-norx-rv64-1.svg)
+_Figure 41: Dynamic instruction usage - norx -O3 vs -Os (sorted by frequency)_
+
+![norx instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-norx-rv64-2.svg)
+_Figure 42: Dynamic instruction usage - norx -O3 vs -Os (sorted by alphabetically)_
+
+![primes instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-primes-rv64-1.svg)
+_Figure 43: Dynamic instruction usage - primes -O3 vs -Os (sorted by frequency)_
+
+![primes instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-primes-rv64-2.svg)
+_Figure 44: Dynamic instruction usage - primes -O3 vs -Os (sorted by alphabetically)_
+
+![qsort instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-qsort-rv64-1.svg)
+_Figure 45: Dynamic instruction usage - qsort -O3 vs -Os (sorted by frequency)_
+
+![qsort instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-qsort-rv64-2.svg)
+_Figure 46: Dynamic instruction usage - qsort -O3 vs -Os (sorted by alphabetically)_
+
+![sha512 instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-sha512-rv64-1.svg)
+_Figure 47: Dynamic instruction usage - sha512 -O3 vs -Os (sorted by frequency)_
+
+![sha512 instruction usage -O3 vs -Os]({{ site.url }}/plots/instructions-sha512-rv64-2.svg)
+_Figure 48: Dynamic instruction usage - sha512 -O3 vs -Os (sorted by alphabetically)_
