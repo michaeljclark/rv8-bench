@@ -110,12 +110,12 @@ TABLE ratio-Os-32
 Runtimes and ratios for optimisation levels (-O3 vs -Os):
 
 ![optimisation comparison native x86 -O3 vs -Os]({{ site.url }}/plots/optimisation-x86.svg )
-_Figure 6: Optimisation native x86 -O3 vs -Os_
+_Figure 6: Optimisation native x86-32 and x86-64, -O3 vs -Os_
 
 TABLE optimisation-x86
 
 ![optimisation comparison rv8 riscv -O3 vs -Os]({{ site.url }}/plots/optimisation-riscv.svg )
-_Figure 5: Optimisation rv8 riscv -O3 vs -Os_
+_Figure 5: Optimisation rv8 riscv32 and riscv64, -O3 vs -Os_
 
 TABLE optimisation-riscv
 
