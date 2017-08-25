@@ -109,15 +109,15 @@ TABLE ratio-Os-32
 
 Runtimes and ratios for optimisation levels (-O3 vs -Os):
 
-![optimisation comparison riscv -O3 vs -Os]({{ site.url }}/plots/optimisation-riscv.svg )
-_Figure 5: Optimisation riscv -O3 vs -Os_
-
-TABLE optimisation-riscv
-
 ![optimisation comparison x86 -O3 vs -Os]({{ site.url }}/plots/optimisation-x86.svg )
 _Figure 6: Optimisation x86 -O3 vs -Os_
 
 TABLE optimisation-x86
+
+![optimisation comparison riscv -O3 vs -Os]({{ site.url }}/plots/optimisation-riscv.svg )
+_Figure 5: Optimisation riscv -O3 vs -Os_
+
+TABLE optimisation-riscv
 
 
 ### Instructions Per Second
