@@ -61,10 +61,10 @@ optimisation-x86    "Optimisation native x86-32 and x86-64, -O3 vs -Os"
 
 optimisation-riscv   "Optimisation rv8 riscv32 and riscv64, -O3 vs -Os"
 	program           "%s" program
-	rv8-rv32-Os       "%s" rv-jit-riscv32-O3-runtime
+	rv8-rv32-O3       "%s" rv-jit-riscv32-O3-runtime
 	rv8-rv32-Os       "%s" rv-jit-riscv32-Os-runtime
 	rv8-rv64-O3       "%s" rv-jit-riscv64-O3-runtime
-	rv8-rv64-O3       "%s" rv-jit-riscv64-Os-runtime
+	rv8-rv64-Os       "%s" rv-jit-riscv64-Os-runtime
 	rv8-rv32-O3:Os    "%s" rv-jit-riscv32-O3-runtime/rv-jit-riscv32-Os-runtime
 	rv8-rv64-O3:Os    "%s" rv-jit-riscv64-O3-runtime/rv-jit-riscv64-Os-runtime
 
