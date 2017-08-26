@@ -1,0 +1,57 @@
+set term svg
+set auto x
+set style data histogram
+set style histogram cluster gap 1
+set style fill solid border -1
+set boxwidth 0.9
+set xtic scale 0
+
+set style line 101 lc rgb '#606060' lt 1 lw 1
+set border ls 101
+
+set ylabel "MIPS (Millions of Instructions Per Second)" offset 2,0,0
+set yrange [0:15000]
+
+set grid xtics ytics
+
+set output "svg/mips-O3-64.svg"
+set title "rv8-bench (MIPS -O3 64-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_64_O3_instret/native_x86_64_O3_runtime)/1000000):xtic(1) title 'native-x86-64-O3-mips', \
+	'' u ((rv_sim_riscv64_O3_instret/rv_jit_riscv64_O3_runtime)/1000000) title 'rv8-riscv64-O3-mips', \
+	'' u ((rv_sim_riscv64_O3_instret/qemu_riscv64_O3_runtime)/1000000) title 'qemu-riscv64-O3-mips'
+
+set output "svg/mips-O2-64.svg"
+set title "rv8-bench (MIPS -O2 64-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_64_O2_instret/native_x86_64_O2_runtime)/1000000):xtic(1) title 'native-x86-64-O2-mips', \
+	'' u ((rv_sim_riscv64_O2_instret/rv_jit_riscv64_O2_runtime)/1000000) title 'rv8-riscv64-O2-mips', \
+	'' u ((rv_sim_riscv64_O2_instret/qemu_riscv64_O2_runtime)/1000000) title 'qemu-riscv64-O2-mips'
+
+set output "svg/mips-Os-64.svg"
+set title "rv8-bench (MIPS -Os 64-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_64_Os_instret/native_x86_64_Os_runtime)/1000000):xtic(1) title 'native-x86-64-Os-mips', \
+	'' u ((rv_sim_riscv64_Os_instret/rv_jit_riscv64_Os_runtime)/1000000) title 'rv8-riscv64-Os-mips', \
+	'' u ((rv_sim_riscv64_Os_instret/qemu_riscv64_Os_runtime)/1000000) title 'qemu-riscv64-Os-mips'
+
+set output "svg/mips-O3-32.svg"
+set title "rv8-bench (MIPS -O3 32-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_32_O3_instret/native_x86_32_O3_runtime)/1000000):xtic(1) title 'native-x86-32-O3-mips', \
+	'' u ((rv_sim_riscv32_O3_instret/rv_jit_riscv32_O3_runtime)/1000000) title 'rv8-riscv32-O3-mips', \
+	'' u ((rv_sim_riscv32_O3_instret/qemu_riscv32_O3_runtime)/1000000) title 'qemu-riscv32-O3-mips'
+
+set output "svg/mips-O2-32.svg"
+set title "rv8-bench (MIPS -O2 32-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_32_O2_instret/native_x86_32_O2_runtime)/1000000):xtic(1) title 'native-x86-32-O2-mips', \
+	'' u ((rv_sim_riscv32_O2_instret/rv_jit_riscv32_O2_runtime)/1000000) title 'rv8-riscv32-O2-mips', \
+	'' u ((rv_sim_riscv32_O2_instret/qemu_riscv32_O2_runtime)/1000000) title 'qemu-riscv32-O2-mips'
+
+set output "svg/mips-Os-32.svg"
+set title "rv8-bench (MIPS -Os 32-bit)"
+plot 'data/benchmarks_noheader.dat' using \
+	((native_x86_32_Os_instret/native_x86_32_Os_runtime)/1000000):xtic(1) title 'native-x86-32-Os-mips', \
+	'' u ((rv_sim_riscv32_Os_instret/rv_jit_riscv32_Os_runtime)/1000000) title 'rv8-riscv32-Os-mips', \
+	'' u ((rv_sim_riscv32_Os_instret/qemu_riscv32_Os_runtime)/1000000) title 'qemu-riscv32-Os-mips'

@@ -22,6 +22,14 @@ plot 'data/benchmarks.dat' using \
 	'' u 'qemu-riscv64-O3-runtime' ti col, \
 	'' u 'qemu-aarch64-O3-runtime' ti col
 
+set output "svg/runtime-O2-64.svg"
+set title "rv8-bench (Runtime -O2 64-bit)"
+plot 'data/benchmarks.dat' using \
+	'native-x86-64-O2-runtime':xtic(1) ti col, \
+	'' u 'rv-jit-riscv64-O2-runtime' ti 'rv8-riscv64-O2-runtime', \
+	'' u 'qemu-riscv64-O2-runtime' ti col, \
+	'' u 'qemu-aarch64-O2-runtime' ti col
+
 set output "svg/runtime-Os-64.svg"
 set title "rv8-bench (Runtime -Os 64-bit)"
 plot 'data/benchmarks.dat' using \
@@ -38,6 +46,13 @@ plot 'data/benchmarks.dat' using \
 	'native-x86-32-O3-runtime':xtic(1) ti col, \
 	'' u 'rv-jit-riscv32-O3-runtime' ti 'rv8-riscv32-O3-runtime', \
 	'' u 'qemu-riscv32-O3-runtime' ti col
+
+set output "svg/runtime-O2-32.svg"
+set title "rv8-bench (Runtime -O2 32-bit)"
+plot 'data/benchmarks.dat' using \
+	'native-x86-32-O2-runtime':xtic(1) ti col, \
+	'' u 'rv-jit-riscv32-O2-runtime' ti 'rv8-riscv32-O2-runtime', \
+	'' u 'qemu-riscv32-O2-runtime' ti col
 
 set output "svg/runtime-Os-32.svg"
 set title "rv8-bench (Runtime -Os 32-bit)"

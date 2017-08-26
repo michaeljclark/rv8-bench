@@ -24,6 +24,16 @@ plot 'data/benchmarks.dat' using \
 	'' u 'native-x86-64-O3-uops-retired-slots' ti col, \
 	'' u 'rv-sim-riscv64-O3-instret' ti col
 
+set output "svg/operations-O2-64.svg"
+set title "rv8-bench (Retired Operations -O2 64-bit)"
+plot 'data/benchmarks.dat' using \
+	'native-x86-64-O2-instret':xtic(1) ti col, \
+	'' u 'native-x86-64-O2-uops-executed' ti col, \
+	'' u 'native-x86-64-O2-uops-issued' ti col, \
+	'' u 'native-x86-64-O2-uops-retired-all' ti col, \
+	'' u 'native-x86-64-O2-uops-retired-slots' ti col, \
+	'' u 'rv-sim-riscv64-O2-instret' ti col
+
 set output "svg/operations-Os-64.svg"
 set title "rv8-bench (Retired Operations -Os 64-bit)"
 plot 'data/benchmarks.dat' using \
@@ -45,6 +55,16 @@ plot 'data/benchmarks.dat' using \
 	'' u 'native-x86-32-O3-uops-retired-all' ti col, \
 	'' u 'native-x86-32-O3-uops-retired-slots' ti col, \
 	'' u 'rv-sim-riscv32-O3-instret' ti col
+
+set output "svg/operations-O2-32.svg"
+set title "rv8-bench (Retired Operations -O2 32-bit)"
+plot 'data/benchmarks.dat' using \
+	'native-x86-32-O2-instret':xtic(1) ti col, \
+	'' u 'native-x86-32-O2-uops-executed' ti col, \
+	'' u 'native-x86-32-O2-uops-issued' ti col, \
+	'' u 'native-x86-32-O2-uops-retired-all' ti col, \
+	'' u 'native-x86-32-O2-uops-retired-slots' ti col, \
+	'' u 'rv-sim-riscv32-O2-instret' ti col
 
 set output "svg/operations-Os-32.svg"
 set title "rv8-bench (Retired Operations -Os 32-bit)"

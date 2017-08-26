@@ -1,4 +1,22 @@
 #!/bin/bash
+
+keynum() {
+	nl data/keylist.txt | grep $1 | awk '{ print $1; }'
+}
+
+substitute() {
+	cp $1 $2
+	for i in $(cat data/keylist.txt | grep -v '#'); do
+		n=$(keynum $i)
+		k=$(echo  $i | tr '-' '_')
+		sed -i '' "s#$k#\$$n#g" $2
+	done
+}
+
+# gather benchmark results
+npm start gather
+
+# join Os and O3 histograms
 for i in aes bigint dhrystone miniz norx primes qsort sha512;
 do
 	# rename zero register to x0
@@ -20,12 +38,16 @@ do
 	rm -f stats/rv-hist-inst-riscv64-$i.tmp
 done
 
+# substitute names with column numbers for the mips plot
 grep -v benchmark data/benchmarks.dat >data/benchmarks_noheader.dat
+substitute plots/mips.gnuplot.template plots/mips.gnuplot
 
+# generate the plots
 gnuplot plots/filesize.gnuplot
 gnuplot plots/fusion.gnuplot
 gnuplot plots/mips.gnuplot
 gnuplot plots/operations.gnuplot
+gnuplot plots/optimisation.gnuplot
 gnuplot plots/registers.gnuplot
 gnuplot plots/instructions.gnuplot
 gnuplot plots/runtime.gnuplot

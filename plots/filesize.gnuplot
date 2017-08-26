@@ -23,6 +23,15 @@ plot 'data/benchmarks.dat' using \
 	'' u 'x86-32-O3-filesize' ti col, \
 	'' u 'x86-64-O3-filesize' ti col
 
+set output "svg/filesize-O2.svg"
+set title "rv8-bench (Filesize -O2)"
+plot 'data/benchmarks.dat' using \
+	'aarch64-O2-filesize':xtic(1) ti col, \
+	'' u 'riscv32-O2-filesize' ti col, \
+	'' u 'riscv64-O2-filesize' ti col, \
+	'' u 'x86-32-O2-filesize' ti col, \
+	'' u 'x86-64-O2-filesize' ti col
+
 set output "svg/filesize-Os.svg"
 set title "rv8-bench (Filesize -Os)"
 plot 'data/benchmarks.dat' using \

@@ -21,9 +21,10 @@ ARM64_PROGS = $(addprefix bin/aarch64/, $(PROGRAMS))
 
 ALL_PROGS = $(RV32_PROGS) $(RV64_PROGS) $(I386_PROGS) $(X86_64_PROGS) $(ARM64_PROGS)
 O3_PROGS = $(addsuffix .O3, $(ALL_PROGS)) $(addsuffix .O3.stripped, $(ALL_PROGS))
+O2_PROGS = $(addsuffix .O2, $(ALL_PROGS)) $(addsuffix .O2.stripped, $(ALL_PROGS))
 OS_PROGS = $(addsuffix .Os, $(ALL_PROGS)) $(addsuffix .Os.stripped, $(ALL_PROGS))
 
-all: $(O3_PROGS) $(OS_PROGS) | npm
+all: $(O3_PROGS) $(O2_PROGS) $(OS_PROGS) | npm
 
 npm: ; npm install
 
@@ -34,6 +35,12 @@ bin/riscv32/%.O3: src/%.c
 bin/riscv32/%.O3: src/%.cc
 	@echo CC $@ ; mkdir -p $(@D) ; $(RV32)g++ $(LDFLAGS) -O3 $(CFLAGS) $< -o $@
 bin/riscv32/%.O3.stripped: bin/riscv32/%.O3
+	@echo STRIP $@ ; $(RV32)strip --strip-all $< -o $@
+bin/riscv32/%.O2: src/%.c
+	@echo CC $@ ; mkdir -p $(@D) ; $(RV32)gcc $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/riscv32/%.O2: src/%.cc
+	@echo CC $@ ; mkdir -p $(@D) ; $(RV32)g++ $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/riscv32/%.O2.stripped: bin/riscv32/%.O2
 	@echo STRIP $@ ; $(RV32)strip --strip-all $< -o $@
 bin/riscv32/%.Os: src/%.c
 	@echo CC $@ ; mkdir -p $(@D) ; $(RV32)gcc $(LDFLAGS) -Os $(CFLAGS) $< -o $@
@@ -48,6 +55,12 @@ bin/riscv64/%.O3: src/%.cc
 	@echo CC $@ ; mkdir -p $(@D) ; $(RV64)g++ $(LDFLAGS) -O3 $(CFLAGS) $< -o $@
 bin/riscv64/%.O3.stripped: bin/riscv64/%.O3
 	@echo STRIP $@ ; $(RV64)strip --strip-all $< -o $@
+bin/riscv64/%.O2: src/%.c
+	@echo CC $@ ; mkdir -p $(@D) ; $(RV64)gcc $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/riscv64/%.O2: src/%.cc
+	@echo CC $@ ; mkdir -p $(@D) ; $(RV64)g++ $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/riscv64/%.O2.stripped: bin/riscv64/%.O2
+	@echo STRIP $@ ; $(RV64)strip --strip-all $< -o $@
 bin/riscv64/%.Os: src/%.c
 	@echo CC $@ ; mkdir -p $(@D) ; $(RV64)gcc $(LDFLAGS) -Os $(CFLAGS) $< -o $@
 bin/riscv64/%.Os: src/%.cc
@@ -60,6 +73,12 @@ bin/i386/%.O3: src/%.c
 bin/i386/%.O3: src/%.cc
 	@echo CC $@ ; mkdir -p $(@D) ; $(I386)g++ $(LDFLAGS) -O3 $(CFLAGS) $< -o $@
 bin/i386/%.O3.stripped: bin/i386/%.O3
+	@echo STRIP $@ ; $(I386)strip --strip-all $< -o $@
+bin/i386/%.O2: src/%.c
+	@echo CC $@ ; mkdir -p $(@D) ; $(I386)gcc $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/i386/%.O2: src/%.cc
+	@echo CC $@ ; mkdir -p $(@D) ; $(I386)g++ $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/i386/%.O2.stripped: bin/i386/%.O2
 	@echo STRIP $@ ; $(I386)strip --strip-all $< -o $@
 bin/i386/%.Os: src/%.c
 	@echo CC $@ ; mkdir -p $(@D) ; $(I386)gcc $(LDFLAGS) -Os $(CFLAGS) $< -o $@
@@ -74,6 +93,12 @@ bin/x86_64/%.O3: src/%.cc
 	@echo CC $@ ; mkdir -p $(@D) ; $(X86_64)g++ $(LDFLAGS) -O3 $(CFLAGS) $< -o $@
 bin/x86_64/%.O3.stripped: bin/x86_64/%.O3
 	@echo STRIP $@ ; $(X86_64)strip --strip-all $< -o $@
+bin/x86_64/%.O2: src/%.c
+	@echo CC $@ ; mkdir -p $(@D) ; $(X86_64)gcc $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/x86_64/%.O2: src/%.cc
+	@echo CC $@ ; mkdir -p $(@D) ; $(X86_64)g++ $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/x86_64/%.O2.stripped: bin/x86_64/%.O2
+	@echo STRIP $@ ; $(X86_64)strip --strip-all $< -o $@
 bin/x86_64/%.Os: src/%.c
 	@echo CC $@ ; mkdir -p $(@D) ; $(X86_64)gcc $(LDFLAGS) -Os $(CFLAGS) $< -o $@
 bin/x86_64/%.Os: src/%.cc
@@ -86,6 +111,12 @@ bin/aarch64/%.O3: src/%.c
 bin/aarch64/%.O3: src/%.cc
 	@echo CC $@ ; mkdir -p $(@D) ; $(ARM64)g++ $(LDFLAGS) -O3 $(CFLAGS) $< -o $@
 bin/aarch64/%.O3.stripped: bin/aarch64/%.O3
+	@echo STRIP $@ ; $(ARM64)strip --strip-all $< -o $@
+bin/aarch64/%.O2: src/%.c
+	@echo CC $@ ; mkdir -p $(@D) ; $(ARM64)gcc $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/aarch64/%.O2: src/%.cc
+	@echo CC $@ ; mkdir -p $(@D) ; $(ARM64)g++ $(LDFLAGS) -O2 $(CFLAGS) $< -o $@
+bin/aarch64/%.O2.stripped: bin/aarch64/%.O2
 	@echo STRIP $@ ; $(ARM64)strip --strip-all $< -o $@
 bin/aarch64/%.Os: src/%.c
 	@echo CC $@ ; mkdir -p $(@D) ; $(ARM64)gcc $(LDFLAGS) -Os $(CFLAGS) $< -o $@
