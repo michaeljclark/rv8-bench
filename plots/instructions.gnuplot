@@ -7,9 +7,9 @@ set border ls 101
 set ylabel "Frequency (count)" offset 2,0,0
 set grid xtics ytics
 
-set style line 1 lt 1 lw 2.5 pt 5 pi -1 ps 0.4 lc '#9400D3'
-set style line 2 lt 1 lw 1.5 pt 5 pi -1 ps 0.4 lc '#228B22'
-set style line 3 lt 1 lw 2.0 pt 7 pi -1 ps 0.4 lc '#00BFFF'
+set style line 1 lt 1 lw 2.5 pt 7 ps 0.5 lc '#9400D3'
+set style line 2 lt 1 lw 2.0 pt 7 ps 0.5 lc '#228B22'
+set style line 3 lt 1 lw 1.5 pt 7 ps 0.5 lc '#00BFFF'
 
 filenames = "aes bigint dhrystone miniz norx primes qsort sha512"
 
