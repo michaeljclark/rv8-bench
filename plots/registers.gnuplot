@@ -1,35 +1,39 @@
 set term svg
 set auto x
-set style data histogram
-set style histogram rowstacked
-set style fill solid border -1
-set boxwidth 0.9
 set xtic scale 0
-
 set xtics nomirror rotate by -60
-
 set style line 101 lc rgb '#606060' lt 1 lw 1
 set border ls 101
-
 set ylabel "Frequency (count)" offset 2,0,0
-
 set grid xtics ytics
+
+set style line 1 lt 1 lw 2.5 pt 5 pi -1 ps 0.4 lc '#9400D3'
+set style line 2 lt 1 lw 1.5 pt 5 pi -1 ps 0.4 lc '#228B22'
+set style line 3 lt 1 lw 2.0 pt 7 pi -1 ps 0.4 lc '#00BFFF'
 
 filenames = "aes bigint dhrystone miniz norx primes qsort sha512"
 
 do for [file in filenames] {
   infile1 = sprintf('stats/rv-hist-riscv64-%s-O3.dir/hist-reg.csv',file)
-  infile2 = sprintf('stats/rv-hist-riscv64-%s-Os.dir/hist-reg.csv',file)
+  infile2 = sprintf('stats/rv-hist-riscv64-%s-O2.dir/hist-reg.csv',file)
+  infile3 = sprintf('stats/rv-hist-riscv64-%s-Os.dir/hist-reg.csv',file)
   outfile = sprintf('svg/registers-%s-rv64-1.svg',file)
   set output outfile
-  set title sprintf('rv8-bench (%s registers riscv64 -O3 vs -Os)',file)
-  plot infile1 using 2:xtic(1) title 'O3', infile2 using 2:xtic(1) title 'Os'
+  set title sprintf('rv8-bench (%s registers riscv64 -O3, -O2, -Os)',file)
+  plot infile1 using 2:xtic(1) title 'O3' with linespoints ls 1, \
+       infile2 using 2:xtic(1) title 'O2' with linespoints ls 2, \
+       infile3 using 2:xtic(1) title 'Os' with linespoints ls 3
 }
+
+set style data histogram
+set style fill solid border -1
+set boxwidth 0.9
+set style histogram rowstacked
 
 do for [file in filenames] {
   infile = sprintf('stats/rv-hist-reg-riscv64-%s.csv',file)
   outfile = sprintf('svg/registers-%s-rv64-2.svg',file)
   set output outfile
-  set title sprintf('rv8-bench (%s registers riscv64 -O3 vs -Os)',file)
-  plot infile using 2:xtic(1) ti col, '' using 3 ti col
+  set title sprintf('rv8-bench (%s registers riscv64 -O3, -O2, -Os)',file)
+  plot infile using 2:xtic(1) ti col, '' using 3 ti col, '' using 4 ti col
 }
