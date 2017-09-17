@@ -1,5 +1,3 @@
-<a href="https://rv8.io/"><img style="float: right;" src="/images/rv8.svg"></a>
-
 ## rv8 benchmark results
 
 This document contains [rv8-bench](https://github.com/rv8-io/rv8-bench/)
