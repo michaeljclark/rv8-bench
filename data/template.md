@@ -1,4 +1,4 @@
-## rv8 benchmark results
+## Benchmark results
 
 This document contains [rv8-bench](https://github.com/rv8-io/rv8-bench/)
 results compiled using GCC 7.1.0 and musl libc. The results include runtime
