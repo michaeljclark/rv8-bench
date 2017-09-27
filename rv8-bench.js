@@ -14,8 +14,10 @@ var targets    = [ 'rv-hist-riscv32',
                    'rv-sim-riscv64',
                    'rv-jit-riscv32',
                    'rv-jit-riscv64',
-                   'rv-jit-df-riscv32',
-                   'rv-jit-df-riscv64',
+                   'rv-jit-ir-riscv32',
+                   'rv-jit-ir-riscv64',
+                   'rv-jit-nf-riscv32',
+                   'rv-jit-nf-riscv64',
                    'qemu-riscv32',
                    'qemu-riscv64',
                    'qemu-aarch64',
@@ -237,9 +239,20 @@ function benchmark_jit(benchmark, target, opt, runs)
   }
 }
 
-function benchmark_jit_df(benchmark, target, opt, runs)
+function benchmark_jit_ir(benchmark, target, opt, runs)
 {
-  var system = 'rv-jit-df-' + target;
+  var system = 'rv-jit-ir-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'rv-jit',
+      ['-i', '-E', 'bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(benchmark, system, opt, data);
+    benchmark_print_row(fmt_time, data);
+  }
+}
+
+function benchmark_jit_nf(benchmark, target, opt, runs)
+{
+  var system = 'rv-jit-nf-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'rv-jit',
       ['-N', 'bin/' + target + '/' + benchmark + "." + opt]);
@@ -280,8 +293,10 @@ function benchmark_run(benchmark, target, opt, runs)
     case 'rv-sim-riscv64': benchmark_sim(benchmark, 'riscv64', opt, runs); break;
     case 'rv-jit-riscv32': benchmark_jit(benchmark, 'riscv32', opt, runs); break;
     case 'rv-jit-riscv64': benchmark_jit(benchmark, 'riscv64', opt, runs); break;
-    case 'rv-jit-df-riscv32': benchmark_jit_df(benchmark, 'riscv32', opt, runs); break;
-    case 'rv-jit-df-riscv64': benchmark_jit_df(benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-ir-riscv32': benchmark_jit_ir(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-ir-riscv64': benchmark_jit_ir(benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-nf-riscv32': benchmark_jit_nf(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-nf-riscv64': benchmark_jit_nf(benchmark, 'riscv64', opt, runs); break;
     case 'qemu-riscv32': benchmark_qemu(benchmark, 'riscv32', opt, runs); break;
     case 'qemu-riscv64': benchmark_qemu(benchmark, 'riscv64', opt, runs); break;
     case 'qemu-aarch64': benchmark_qemu(benchmark, 'aarch64', opt, runs); break;
