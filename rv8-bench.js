@@ -244,9 +244,9 @@ function benchmark_jit_ir(benchmark, target, opt, runs)
   var system = 'rv-jit-ir-' + target;
   for (var i = 0; i < runs; i++) {
     var data = benchmark_cmd(benchmark, 'rv-jit',
-      ['-i', '-E', 'bin/' + target + '/' + benchmark + "." + opt]);
+      ['-i', '-N', '-E', 'bin/' + target + '/' + benchmark + "." + opt]);
     benchmark_add_row(benchmark, system, opt, data);
-    benchmark_print_row(fmt_time, data);
+    benchmark_print_row(fmt_inst, data);
   }
 }
 
