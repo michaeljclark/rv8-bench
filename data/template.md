@@ -63,9 +63,7 @@ aarch64      | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
 
 #### Measurement details
 
-- rv8 benchmarks use `rv-jit`
 - Dynamic instruction counts are measured using `rv-sim -E`
-- QEMU benchmarks use `qemu-riscv32`, `qemu-riscv64` and `qemu-aarch64`
 - Benchmarks are run 20 times and the best result is taken
 - All programs are compiled as position independent executables (`-fPIE`)
 - Host: Intel® 6th-gen Core™ i7-5557U Broadwell (3.10-3.40GHz, 4MB cache)
