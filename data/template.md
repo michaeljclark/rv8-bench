@@ -52,11 +52,12 @@ and runtime libraries are used to run the benchmarks:
 
 Architecture | Compiler  | C Library | Compile options
 :--          | :--       | :--       | :--
-x86-32       | GCC 7.1.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
-x86-64       | GCC 7.1.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
-riscv32      | GCC 7.1.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
-riscv64      | GCC 7.1.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
-aarch64      | GCC 7.1.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+x86-32       | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+x86-64       | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+riscv32      | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+riscv64      | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+arm32        | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
+aarch64      | GCC 7.2.0 | musl libc | `'-O3'`, `'-O2'` and `'-Os'`
 
 #### Measurement details
 

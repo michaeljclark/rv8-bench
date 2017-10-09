@@ -1,4 +1,4 @@
-set term svg
+set term svg size 640,480
 set auto x
 set style data histogram
 set style histogram cluster gap 2
@@ -17,7 +17,8 @@ set grid xtics ytics
 set output "svg/filesize-O3.svg"
 set title "rv8-bench (Filesize -O3)"
 plot 'data/benchmarks.dat' using \
-	'aarch64-O3-filesize':xtic(1) ti col, \
+	'arm-O3-filesize':xtic(1) ti 'arm32-O3-filesize', \
+	'' u 'aarch64-O3-filesize' ti col, \
 	'' u 'riscv32-O3-filesize' ti col, \
 	'' u 'riscv64-O3-filesize' ti col, \
 	'' u 'x86-32-O3-filesize' ti col, \
@@ -26,7 +27,8 @@ plot 'data/benchmarks.dat' using \
 set output "svg/filesize-O2.svg"
 set title "rv8-bench (Filesize -O2)"
 plot 'data/benchmarks.dat' using \
-	'aarch64-O2-filesize':xtic(1) ti col, \
+	'arm-O2-filesize':xtic(1) ti 'arm32-O2-filesize', \
+	'' u 'aarch64-O2-filesize' ti col, \
 	'' u 'riscv32-O2-filesize' ti col, \
 	'' u 'riscv64-O2-filesize' ti col, \
 	'' u 'x86-32-O2-filesize' ti col, \
@@ -35,7 +37,8 @@ plot 'data/benchmarks.dat' using \
 set output "svg/filesize-Os.svg"
 set title "rv8-bench (Filesize -Os)"
 plot 'data/benchmarks.dat' using \
-	'aarch64-Os-filesize':xtic(1) ti col, \
+	'arm-Os-filesize':xtic(1) ti 'arm32-Os-filesize', \
+	'' u 'aarch64-Os-filesize' ti col, \
 	'' u 'riscv32-Os-filesize' ti col, \
 	'' u 'riscv64-Os-filesize' ti col, \
 	'' u 'x86-32-Os-filesize' ti col, \

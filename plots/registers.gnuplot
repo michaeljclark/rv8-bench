@@ -1,4 +1,4 @@
-set term svg
+set term svg size 640,480
 set auto x
 set xtic scale 0
 set xtics nomirror rotate by -60

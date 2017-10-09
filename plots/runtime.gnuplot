@@ -1,4 +1,4 @@
-set term svg
+set term svg size 640,480
 set auto x
 set style data histogram
 set style histogram cluster gap 2
@@ -38,25 +38,26 @@ plot 'data/benchmarks.dat' using \
 	'' u 'qemu-riscv64-Os-runtime' ti col, \
 	'' u 'qemu-aarch64-Os-runtime' ti col
 
-set yrange [0:6]
-
 set output "svg/runtime-O3-32.svg"
 set title "rv8-bench (Runtime -O3 32-bit)"
 plot 'data/benchmarks.dat' using \
 	'native-x86-32-O3-runtime':xtic(1) ti col, \
 	'' u 'rv-jit-riscv32-O3-runtime' ti 'rv8-riscv32-O3-runtime', \
-	'' u 'qemu-riscv32-O3-runtime' ti col
+	'' u 'qemu-riscv32-O3-runtime' ti col, \
+	'' u 'qemu-arm-O3-runtime' ti 'qemu-arm32-O3-runtime'
 
 set output "svg/runtime-O2-32.svg"
 set title "rv8-bench (Runtime -O2 32-bit)"
 plot 'data/benchmarks.dat' using \
 	'native-x86-32-O2-runtime':xtic(1) ti col, \
 	'' u 'rv-jit-riscv32-O2-runtime' ti 'rv8-riscv32-O2-runtime', \
-	'' u 'qemu-riscv32-O2-runtime' ti col
+	'' u 'qemu-riscv32-O2-runtime' ti col, \
+	'' u 'qemu-arm-O2-runtime' ti 'qemu-arm32-O2-runtime'
 
 set output "svg/runtime-Os-32.svg"
 set title "rv8-bench (Runtime -Os 32-bit)"
 plot 'data/benchmarks.dat' using \
 	'native-x86-32-Os-runtime':xtic(1) ti col, \
 	'' u 'rv-jit-riscv32-Os-runtime' ti 'rv8-riscv32-Os-runtime', \
-	'' u 'qemu-riscv32-Os-runtime' ti col
+	'' u 'qemu-riscv32-Os-runtime' ti col, \
+	'' u 'qemu-arm-Os-runtime' ti 'qemu-arm32-Os-runtime'

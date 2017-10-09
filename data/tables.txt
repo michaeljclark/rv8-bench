@@ -21,18 +21,21 @@ runtime-Os-64        "Runtime 64-bit -Os (seconds)"
 
 runtime-O3-32         "Runtime 32-bit -O3 (seconds)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-O3-runtime
 	qemu-riscv32      "%s" qemu-riscv32-O3-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-O3-runtime
 	native-x86-32     "%s" native-x86-32-O3-runtime
 
 runtime-O2-32         "Runtime 32-bit -O2 (seconds)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-O2-runtime
 	qemu-riscv32      "%s" qemu-riscv32-O2-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-O2-runtime
 	native-x86-32     "%s" native-x86-32-O2-runtime
 
 runtime-Os-32         "Runtime 32-bit -Os (seconds)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-Os-runtime
 	qemu-riscv32      "%s" qemu-riscv32-Os-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-Os-runtime
 	native-x86-32     "%s" native-x86-32-Os-runtime
@@ -60,18 +63,21 @@ ratio-Os-64           "Performance Ratio 64-bit -Os (smaller is better)"
 
 ratio-O3-32           "Performance Ratio 32-bit -O3 (smaller is better)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-O3-runtime/native-x86-32-O3-runtime
 	qemu-riscv32      "%s" qemu-riscv32-O3-runtime/native-x86-32-O3-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-O3-runtime/native-x86-32-O3-runtime
 	native-x86-32     "%s" 1.00
 
 ratio-O2-32           "Performance Ratio 32-bit -O2 (smaller is better)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-O2-runtime/native-x86-32-O2-runtime
 	qemu-riscv32      "%s" qemu-riscv32-O2-runtime/native-x86-32-O2-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-O2-runtime/native-x86-32-O2-runtime
 	native-x86-32     "%s" 1.00
 
 ratio-Os-32           "Performance Ratio 32-bit -Os (smaller is better)"
 	program           "%s" program
+	qemu-arm32        "%s" qemu-arm-Os-runtime/native-x86-32-Os-runtime
 	qemu-riscv32      "%s" qemu-riscv32-Os-runtime/native-x86-32-Os-runtime
 	rv8-riscv32       "%s" rv-jit-riscv32-Os-runtime/native-x86-32-Os-runtime
 	native-x86-32     "%s" 1.00
@@ -150,6 +156,7 @@ fusion-Os-32          "Macro-op fusion performance 32-bit -Os"
 
 filesize-O3           "Compiled File Size (bytes) -O3"
 	program           "%s" program
+	arm32             "%d" arm-O3-filesize
 	aarch64           "%d" aarch64-O3-filesize
 	riscv32           "%d" riscv32-O3-filesize
 	riscv64           "%d" riscv64-O3-filesize
@@ -158,6 +165,7 @@ filesize-O3           "Compiled File Size (bytes) -O3"
 
 filesize-O2           "Compiled File Size (bytes) -O2"
 	program           "%s" program
+	arm32             "%d" arm-O2-filesize
 	aarch64           "%d" aarch64-O2-filesize
 	riscv32           "%d" riscv32-O2-filesize
 	riscv64           "%d" riscv64-O2-filesize
@@ -166,6 +174,7 @@ filesize-O2           "Compiled File Size (bytes) -O2"
 
 filesize-Os           "Compiled File Size (bytes) -Os"
 	program           "%s" program
+	arm32             "%d" arm-Os-filesize
 	aarch64           "%d" aarch64-Os-filesize
 	riscv32           "%d" riscv32-Os-filesize
 	riscv64           "%d" riscv64-Os-filesize

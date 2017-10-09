@@ -14,17 +14,17 @@ var targets    = [ 'rv-hist-riscv32',
                    'rv-sim-riscv64',
                    'rv-jit-riscv32',
                    'rv-jit-riscv64',
-                   'rv-jit-ir-riscv32',
-                   'rv-jit-ir-riscv64',
-                   'rv-jit-nf-riscv32',
-                   'rv-jit-nf-riscv64',
+                   'rv-jit-mem-riscv32',
+                   'rv-jit-mem-riscv64',
                    'qemu-riscv32',
                    'qemu-riscv64',
+                   'qemu-arm',
                    'qemu-aarch64',
                    'native-i386',
                    'native-x86_64',
                    'size-riscv32',
                    'size-riscv64',
+                   'size-arm',
                    'size-aarch64',
                    'size-i386',
                    'size-x86_64' ];
@@ -261,6 +261,17 @@ function benchmark_jit_nf(benchmark, target, opt, runs)
   }
 }
 
+function benchmark_jit_mem(benchmark, target, opt, runs)
+{
+  var system = 'rv-jit-mem-' + target;
+  for (var i = 0; i < runs; i++) {
+    var data = benchmark_cmd(benchmark, 'rv-jit',
+      ['-M', 'bin/' + target + '/' + benchmark + "." + opt]);
+    benchmark_add_row(benchmark, system, opt, data);
+    benchmark_print_row(fmt_time, data);
+  }
+}
+
 function benchmark_qemu(benchmark, target, opt, runs)
 {
   var system = 'qemu-' + target;
@@ -297,13 +308,17 @@ function benchmark_run(benchmark, target, opt, runs)
     case 'rv-jit-ir-riscv64': benchmark_jit_ir(benchmark, 'riscv64', opt, runs); break;
     case 'rv-jit-nf-riscv32': benchmark_jit_nf(benchmark, 'riscv32', opt, runs); break;
     case 'rv-jit-nf-riscv64': benchmark_jit_nf(benchmark, 'riscv64', opt, runs); break;
+    case 'rv-jit-mem-riscv32': benchmark_jit_mem(benchmark, 'riscv32', opt, runs); break;
+    case 'rv-jit-mem-riscv64': benchmark_jit_mem(benchmark, 'riscv64', opt, runs); break;
     case 'qemu-riscv32': benchmark_qemu(benchmark, 'riscv32', opt, runs); break;
     case 'qemu-riscv64': benchmark_qemu(benchmark, 'riscv64', opt, runs); break;
+    case 'qemu-arm': benchmark_qemu(benchmark, 'arm', opt, runs); break;
     case 'qemu-aarch64': benchmark_qemu(benchmark, 'aarch64', opt, runs); break;
     case 'native-i386': benchmark_native(benchmark, 'i386', opt, runs); break;
     case 'native-x86_64': benchmark_native(benchmark, 'x86_64', opt, runs); break;
     case 'size-riscv32': benchmark_size(benchmark, 'riscv32', opt, runs); break;
     case 'size-riscv64': benchmark_size(benchmark, 'riscv64', opt, runs); break;
+    case 'size-arm': benchmark_size(benchmark, 'arm', opt, runs); break;
     case 'size-aarch64': benchmark_size(benchmark, 'aarch64', opt, runs); break;
     case 'size-i386': benchmark_size(benchmark, 'i386', opt, runs); break;
     case 'size-x86_64': benchmark_size(benchmark, 'x86_64', opt, runs); break;

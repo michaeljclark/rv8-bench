@@ -1,4 +1,4 @@
-set term svg
+set term svg size 640,480
 set auto x
 set style data histogram
 set style histogram cluster gap 1

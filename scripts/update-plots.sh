@@ -52,8 +52,8 @@ grep -v benchmark data/benchmarks.dat >data/benchmarks_noheader.dat
 substitute plots/mips.gnuplot.template plots/mips.gnuplot
 
 # generate the plots
+#gnuplot plots/fusion.gnuplot
 gnuplot plots/filesize.gnuplot
-gnuplot plots/fusion.gnuplot
 gnuplot plots/mips.gnuplot
 gnuplot plots/operations.gnuplot
 gnuplot plots/optimisation.gnuplot
