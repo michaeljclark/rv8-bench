@@ -6,9 +6,9 @@ and instructions per second comparisons for the QEMU and rv8 JIT engines
 and native x86. The benchmark suite is compiled for aarch64, arm32, riscv64,
 riscv32, x86-64 and x86-32.
 
-The results include various runtime neutral metrics such as retired RISC-V
+The results include runtime neutral metrics such as retired RISC-V
 instructions, x86 micro-ops, executable file sizes plus dynamic register and
-instruction usage histograms for RISC-V.
+instruction  histograms for RISC-V.
 
 #### Benchmark source
 
