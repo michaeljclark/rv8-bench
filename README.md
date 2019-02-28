@@ -37,9 +37,7 @@ _Installing musl-riscv-toolchain_
 ```
 git clone https://github.com/rv8-io/musl-riscv-toolchain.git
 cd musl-riscv-toolchain
-for i in rv32 rv64 x86_64 i386 ; do \
-   sh bootstrap.sh $i ; rm -fr build stamps ; \
-done
+for i in riscv32 riscv64 i386 x86_64 arm aarch64; do sh bootstrap.sh $i ; done
 ```
 
 _Installing rv8_
