@@ -8456,7 +8456,7 @@ int main()
     pData = malloc(DATA_SIZE);
     srand(0);
     for (size_t j = 0; j < DATA_SIZE; j+= sizeof(int)) {
-        pData[j] = rand();
+        *(int*)(pData + j) = rand();
     }
 
     printf("miniz.c version: %s\n", MZ_VERSION);
