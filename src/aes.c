@@ -1103,7 +1103,7 @@ int main()
 
 	/* create test pattern */
 	char c = 0x01;
-	for (size_t j = 0; j < DATA_SIZE; j+= sizeof(int)) {
+	for (size_t j = 0; j < DATA_SIZE; j++) {
 		pt1[j] = (c ^= c * 7);
 	}
 
